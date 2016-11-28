@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:fragment="dochead">
+	<link th:href="@{/css/normalize.css}" rel="stylesheet" />
+	<link th:href="@{/css/styles.css}" rel="stylesheet" />
+	<title>Hockey Official Evaluations</title>
+</head>
+
+<body>
+
+<nav th:fragment="navigation">
+	<ul>
+        <li><a href="/">home</a></li>
+        <li><a href="/officiallogin">Official Login</a></li>
+        <li><a href="/evaluatorlogin">Evaluator Login</a></li>
+        <li><a href="/adminlogin">AdminLogin</a></li>
+    </ul>
+</nav>
+
+<nav th:fragment="nav-official">
+	<ul>
+		<li><a href="/officialhome">Official Home</a></li>
+		<li><a href="/officialevaluations">Evaluations</a></li>
+		<li><a href="/officialrequestevaluation">Request Evaluation</a></li>
+		<li><a href="/logout">Logout</a></li>
+	</ul>
+
+</nav>
+
+</body>
+</html>
