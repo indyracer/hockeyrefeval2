@@ -8,17 +8,15 @@
 
 <body>
 
-<nav th:fragment="navigation">
-	<ul>
-        <li><a href="/">home</a></li>
-        <li><a href="/officiallogin">Official Login</a></li>
-        <li><a href="/evaluatorlogin">Evaluator Login</a></li>
-        <li><a href="/adminlogin">AdminLogin</a></li>
+<nav th:fragment="main-nav">
+	<ul id="main-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/logout">Logout</a></li>
     </ul>
 </nav>
 
-<nav th:fragment="nav-official">
-	<ul>
+<nav th:fragment="official-nav">
+	<ul id="official-nav">
 		<li><a href="/officialhome">Official Home</a></li>
 		<li><a href="/officialevaluations">Evaluations</a></li>
 		<li><a href="/officialrequestevaluation">Request Evaluation</a></li>

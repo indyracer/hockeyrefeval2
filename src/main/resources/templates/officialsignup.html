@@ -3,18 +3,23 @@
 <head th:replace="template :: dochead"></head>
 
 <body>
+
+	<div th:replace="template :: main-nav"></div>
+	
 	<h1>Official Signup</h1>
 	
 	<form method="post">
 		<table>
+			
 			<tr>
-				<span class="error" th:text="missing_field_error"></span>
+				<td><span class="error" th:text="${missing_field_error}"></span></td>
 			</tr>
+			
 			<tr>
 				<td><label for="firstname">First Name</label></td>
 				<td>
 					<input name="firstname" type="text" th:value="${firstname}"></input>
-					<span class="error" th:text="firstname_error"></span>
+					<span class="error" th:text="${firstname_error}"></span>
 				</td>
 			</tr>
 			
@@ -22,7 +27,7 @@
 				<td><label for="lastname">Last Name</label></td>
 				<td>
 					<input name="lastname" type="text" th:value="${lastname}"></input>
-					<span class="error" th:text="lastname_error"></span>
+					<span class="error" th:text="${lastname_error}"></span>
 				</td>
 			</tr>
 			
@@ -30,7 +35,7 @@
 				<td><label for="level">Level</label></td>
 				<td>
 					<input name="level" type="text" th:value="${level}"></input>
-					<span class="error" th:text="level_error"></span>
+					<span class="error" th:text="${level_error}"></span>
 				</td>
 			</tr>
 				
@@ -38,7 +43,7 @@
 				<td><label for="username">Username</label></td>
 				<td>
 					<input name="username" type="text" th:value="${username}"></input>
-					<span class="error" th:text="username_error"></span>
+					<span class="error" th:text="${username_error}"></span>
 				</td>
 			</tr>
 			
@@ -46,7 +51,7 @@
 				<td><label for="password">Password</label></td>
 				<td>
 					<input name="password" type="password" th:value="${password}"></input>
-					<span class="error" th:text="password_error"></span>
+					<span class="error" th:text="${password_error}"></span>
 				</td>
 			</tr>
 			
@@ -54,7 +59,7 @@
 				<td><label for="verify">Verify Password</label></td>
 				<td>
 					<input name="verify" type="password" th:value="${verify}"></input>
-					<span class="error" th:text="verify_error"></span>
+					<span class="error" th:text="${verify_error}"></span>
 				</td>
 			</tr>
 		</table>

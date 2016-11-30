@@ -100,12 +100,16 @@ public class OfficialAuthenticationController extends AbstractController {
 			return "/officialsignup";
 		}
 		
+		//set isOfficial to true, isEvaluator to false, isAdmin to false
+		
+	
+		
 		//once validated, create new official
-		Official newOfficial = new Official(firstName, lastName, username, password, level);
+		Official newOfficial = new Official(firstName, lastName, username, password, level, true, false, false);
 		officialDao.save(newOfficial);
 		setOfficialInSession(request.getSession(), newOfficial);
 		
-		return "officialhome";
+		return "redirect:/officialhome";
 	}
 
 }

@@ -20,11 +20,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 	@Autowired
 	OfficialDao officialDao;
 	
-	@Autowired
-	EvaluatorDao evaluatorDao;
 	
-	@Autowired
-	AdminDao adminDao;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
