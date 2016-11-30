@@ -4,13 +4,19 @@
 
 <body>
 
-<div th:replace="template :: main-nav"></div>
+<div th:replace="template :: official-nav"></div>
+
+	
 
 	<h1>Officials Home Page</h1>
 	
-	<!-- add list of evaluations here, use dynamic links --> 
 	
-	<h2>To request an evaluation, <a href="/officialrequestevaluation">click here</a></h2>
+	
+	<!-- add list of evaluations here, use dynamic links -->
+	<h2>Recent Evaluations</h2> 
+	
+	<h2>To request an evaluation, <a href="/officialevaluationrequest">click here</a></h2>
+	<span class="request_received" text:th="${request_received}"></span>
 	
 	
 

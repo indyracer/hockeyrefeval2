@@ -4,13 +4,50 @@
 
 <body>
 
-<div th:replace="template :: nav-official"></div>
+	<div th:replace="template :: nav-official"></div>
 
 	<h1>Request an Evaluation</h1>
 	
 	<h2>Fill out the below form to request an evaluation</h2>
 	
 	<!-- develop request form and figure out where to send the data -->
+	<form>
+		
+		<table>
+			<tr>
+				<td><span class="error" th:text="${missing_field_error}"></span></td>
+			</tr>
+			<tr>
+				<td><label for="username">Username</label></td>
+				<td>
+					<input name="username" type="text" th:value="${username}"></input>
+					<span class="error" th:text="${username_error}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="date">Date of Game to be Evaluated</label></td>
+				<td>
+					<input name="date" type="text" th:value="${date}"></input>
+					<span class="error" th:text="${date_error}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="time">Time of Game</label></td>
+				<td>
+					<input name="time" type="text" th:value="${time}"></input>
+					<span class="error" th:text="${time_error}"></span>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="location">Game Location</label></td>
+				<td>
+					<input name="location" type="text" th:value="${location}"></input>
+					<span class="location" th:text="${location_error}"></span>
+				</td>
+			</tr>
+		</table>
+		<button type="submit">Submit</button>
+	</form>
 	
 	
 

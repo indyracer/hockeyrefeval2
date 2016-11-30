@@ -15,5 +15,6 @@ public interface OfficialDao extends CrudRepository<Official, Integer>{
 	List<Official> findAll();
 	Official findByUid(int uid);
 	Official findByUsername(String username);
+	Official findByFirstName(String firstName);
 
 }

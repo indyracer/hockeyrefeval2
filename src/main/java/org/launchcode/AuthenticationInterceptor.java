@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.launchcode.refeval.controllers.AbstractController;
 import org.launchcode.refeval.models.Official;
-import org.launchcode.refeval.models.dao.AdminDao;
-import org.launchcode.refeval.models.dao.EvaluatorDao;
 import org.launchcode.refeval.models.dao.OfficialDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -25,7 +23,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
 		//list of restricted Official URLs
-		List<String> officialAuthPages = Arrays.asList("officialhome", "officialevals", "officialrequesteval");
+		List<String> officialAuthPages = Arrays.asList("officialhome", "officialrequesteval");
 		
 		if(officialAuthPages.contains(request.getRequestURI())){
 			boolean isLoggedIn = false;
