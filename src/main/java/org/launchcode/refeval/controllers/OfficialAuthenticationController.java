@@ -111,6 +111,46 @@ public class OfficialAuthenticationController extends AbstractController {
 		
 		return "redirect:/officialhome";
 	}
+	
+	@RequestMapping(value="/adminlogin", method = RequestMethod.GET)
+	public String adminloginForm() {
+		// pulls up login form
+		return "adminlogin";
+	}
+
+	@RequestMapping(value="/adminlogin", method = RequestMethod.POST)
+	public String adminLogin(HttpServletRequest request, Model model) {
+		// implements the login
+		
+		//get parameters from login form
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		//validate parameters in order to login
+		Official official = officialDao.findByUsername(username);
+		
+		//official username and password were submitted
+		if(username == null || username == "" || password == null || password == ""){
+			model.addAttribute("login_error", "Missing username or password, please try again");
+			return "adminlogin";
+		}
+		
+		//validate official is in database
+		if(official == null){
+			model.addAttribute("login_error", "Username not found, please try again");
+			return "adminlogin";
+		}
+		
+		//check password matches to official
+		if(!official.isMatchingPassword(password)){
+			model.addAttribute("login_error", "Incorrect password, please try again");
+			return "adminlogin";
+		}
+		
+		//log them in by setting official in session
+		setOfficialInSession(request.getSession(), official);
+		return "redirect:/adminhome";
+	}
 
 }
 

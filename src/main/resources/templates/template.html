@@ -16,18 +16,23 @@
 </nav>
 
 <nav th:fragment="official-nav">
-	<ul id="main-nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="/logout">Logout</a></li>
-    </ul>
     <ul>
 		<li><a href="/officialhome">Official Home</a></li>
 		<li><a href="/officialevaluations">Evaluations</a></li>
-		<li><a href="/officialrequestevaluation">Request Evaluation</a></li>
+		<li><a href="/officialevaluationrequest">Request Evaluation</a></li>
 		<li><a href="/logout">Logout</a></li>
 	</ul>
 
 </nav>
 
+<nav th:fragment="admin-nav">
+    <ul>
+		<li><a href="/adminhome">Admin Home</a></li>
+		<li><a href="/adminevalsetup">Setup Evaluators</a></li>
+		<li><a href="/adminreports">Reports</a></li>
+		<li><a href="/logout">Logout</a></li>
+	</ul>
+
+</nav>
 </body>
 </html>

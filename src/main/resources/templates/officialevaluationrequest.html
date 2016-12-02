@@ -4,7 +4,7 @@
 
 <body>
 
-	<div th:replace="template :: nav-official"></div>
+	<div th:replace="template :: official-nav"></div>
 
 	<h1>Request an Evaluation</h1>
 	
@@ -25,7 +25,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for="date">Date of Game to be Evaluated</label></td>
+				<td><label for="date">Date of Game to be Evaluated(m/d/y)</label></td>
 				<td>
 					<input name="date" type="text" th:value="${date}"></input>
 					<span class="error" th:text="${date_error}"></span>

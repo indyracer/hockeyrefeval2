@@ -1,7 +1,5 @@
 package org.launchcode.refeval.models;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,9 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.context.annotation.Primary;
+
 @Entity
 @Table(name="evalrequests")
-public class EvaluationRequest {
+public class EvaluationRequest{
+	
 	
 	private int requestId;
 	private String username;
@@ -24,7 +25,8 @@ public class EvaluationRequest {
 	
 	public EvaluationRequest(String username, String date, String time, String location){
 		
-		this.requestId = requestId;
+		
+		this.requestId= requestId;
 		this.username = username;
 		this.date = date;
 		this.time = time;
@@ -37,11 +39,12 @@ public class EvaluationRequest {
 	@GeneratedValue
 	@NotNull
 	@Column(name = "requestId", unique = true)
+	
 	public int getRequestId(){
 		return this.requestId;
 	}
 	
-	protected void setRequestId(int requestId){
+	public void setRequestId(int requestId){
 		this.requestId = requestId;
 	}
 	

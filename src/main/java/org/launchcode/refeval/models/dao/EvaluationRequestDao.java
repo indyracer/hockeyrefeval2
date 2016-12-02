@@ -1,6 +1,5 @@
 package org.launchcode.refeval.models.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -15,6 +14,6 @@ public interface EvaluationRequestDao extends CrudRepository<EvaluationRequest, 
 	
 	List<EvaluationRequest> findAll();
 	EvaluationRequest findByRequestId(int requestId);
-	EvaluationRequest findByDate(Date date);
+	EvaluationRequest findByDate(String date);
 
 }

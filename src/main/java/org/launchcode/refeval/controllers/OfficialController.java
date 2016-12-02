@@ -46,27 +46,24 @@ public class OfficialController extends AbstractController{
 		String time = request.getParameter("time");
 		String location = request.getParameter("location");
 		
-		//validate all fields filled in
-		if(username == "" || date == "" || time == "" || location == ""){
-			model.addAttribute("missing_field_error", "All fields need to be filled in, please try again");
-			return "/officialevaluationrequest";
-		}
-		
-		//validate official is official logged in, how do this?
-		
 		//validate official is in database
 		//get username of official
 		Official official = officialDao.findByUsername(username);
 		
-
-		//validate username in database
-		
-		
-		if(official == null){
-			model.addAttribute("username_error", "Username not found, please try again");
-			return "/officialevaluationrequest";
+		//validate fields were filled in
+		if(username == "" || username == null || date == "" || date == null || time == "" || time == null || location == "" || location == null){
+			model.addAttribute("missing_field_error", "Missing information, please fill in all fields");
+			return "officialevaluationrequest";
 		}
 		
+		//validate official is in database
+		if(official == null){
+			model.addAttribute("username_error", "Username not found, please try again");
+			return "officialevaluationrequest";
+		}
+		
+		
+			
 		//validation complete add request to db
 		EvaluationRequest newRequest = new EvaluationRequest(username, date, time, location);
 		evaluationRequestDao.save(newRequest);
