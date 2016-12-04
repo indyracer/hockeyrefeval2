@@ -1,13 +1,14 @@
 package org.launchcode.refeval.models;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.context.annotation.Primary;
 
 @Entity
 @Table(name="evalrequests")
@@ -26,7 +27,7 @@ public class EvaluationRequest{
 	public EvaluationRequest(String username, String date, String time, String location){
 		
 		
-		this.requestId= requestId;
+		this.requestId = requestId;
 		this.username = username;
 		this.date = date;
 		this.time = time;
@@ -34,6 +35,8 @@ public class EvaluationRequest{
 		
 		
 	}
+	
+	
 	
 	@Id
 	@GeneratedValue
@@ -88,7 +91,7 @@ public class EvaluationRequest{
 	protected void setLocation(String location){
 		this.location = location;
 	}
-	
+
 	
 
 }

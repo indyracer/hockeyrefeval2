@@ -1,5 +1,8 @@
 package org.launchcode.refeval.controllers;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.launchcode.refeval.models.EvaluationRequest;
@@ -46,21 +49,49 @@ public class OfficialController extends AbstractController{
 		String time = request.getParameter("time");
 		String location = request.getParameter("location");
 		
-		//validate official is in database
-		//get username of official
+		//validate fields have been filled in
 		Official official = officialDao.findByUsername(username);
 		
-		//validate fields were filled in
-		if(username == "" || username == null || date == "" || date == null || time == "" || time == null || location == "" || location == null){
-			model.addAttribute("missing_field_error", "Missing information, please fill in all fields");
+		if(username == ""){
+			model.addAttribute("username_error", "Please include username");
+			return "officialevaluationrequest";			
+		}
+		
+		if(date == ""){
+			model.addAttribute("date_error", "Please include date");
 			return "officialevaluationrequest";
 		}
+		
+		if(time == ""){
+			model.addAttribute("time_error", "Please include time");
+			return "officialevaluationrequest";
+		}
+		
+		if(location == ""){
+			model.addAttribute("location_error", "Please include location");
+			return "officialevalationrequest";
+		}
+		
 		
 		//validate official is in database
 		if(official == null){
 			model.addAttribute("username_error", "Username not found, please try again");
 			return "officialevaluationrequest";
 		}
+		
+		//validate date is formatted correctly
+		if(!isValidDate(date)){
+			model.addAttribute("date_error", "Please input your date in M/D/Y format");
+			return "officialevaluationrequest";
+			
+		}
+		
+		//validate time is formatted correctly
+		if(!isValidTime(time)){
+			model.addAttribute("time_error", "Please input the time in h:m am/pm format");
+			return "officialevaluationrequest";
+		}
+	
 		
 		
 			
@@ -70,6 +101,18 @@ public class OfficialController extends AbstractController{
 		
 		model.addAttribute("request_received", "Your evaluation request has been received");
 		return "redirect:/officialhome";
+	}
+	
+	public static boolean isValidDate(String date){
+		Pattern validDatePattern = Pattern.compile("^[0-3]?[0-9]/[0-3]?[0-9]/(?:[0-9]{2})?[0-9]{2}$");
+		Matcher matcher = validDatePattern.matcher(date);
+		return matcher.matches();
+	}
+	
+	public static boolean isValidTime(String time){
+		Pattern validTimePattern = Pattern.compile("(1[012]|[1-9]):[0-5][0-9](\\s)?(?i)(am|pm)");
+		Matcher matcher = validTimePattern.matcher(time);
+		return matcher.matches();
 	}
 	
 	

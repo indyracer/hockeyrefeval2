@@ -11,7 +11,7 @@
 	<h2>Fill out the below form to request an evaluation</h2>
 	
 	<!-- develop request form and figure out where to send the data -->
-	<form>
+	<form method="post">
 		
 		<table>
 			<tr>
@@ -32,7 +32,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for="time">Time of Game</label></td>
+				<td><label for="time">Time of Game(h:m am/pm)</label></td>
 				<td>
 					<input name="time" type="text" th:value="${time}"></input>
 					<span class="error" th:text="${time_error}"></span>
