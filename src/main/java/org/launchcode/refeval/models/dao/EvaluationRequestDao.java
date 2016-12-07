@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface EvaluationRequestDao extends CrudRepository<EvaluationRequest, Integer> {
 	
 	List<EvaluationRequest> findAll();
-	EvaluationRequest findByRequestId(int requestId);
+	EvaluationRequest findByUid(int uid);
 	EvaluationRequest findByDate(String date);
 
 }

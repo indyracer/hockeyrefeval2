@@ -20,9 +20,9 @@ public class Official extends AbstractUser {
 	protected String pwHash;
 	protected static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	private int level; //certification level
-	private boolean isOfficial;
-	private boolean isEvaluator;
-	private boolean isAdmin;
+	public boolean isOfficial;
+	public boolean isEvaluator;
+	public boolean isAdmin;
 
 
 

@@ -1,21 +1,16 @@
 package org.launchcode.refeval.models;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="evalrequests")
-public class EvaluationRequest{
+public class EvaluationRequest extends AbstractUser{
 	
 	
-	private int requestId;
+	
 	private String username;
 	private String date;
 	private String time;
@@ -24,10 +19,10 @@ public class EvaluationRequest{
 	//no arg constructor for hibernate
 	public EvaluationRequest(){}
 	
-	public EvaluationRequest(String username, String date, String time, String location){
+	public EvaluationRequest (String username, String date, String time, String location){
 		
 		
-		this.requestId = requestId;
+		
 		this.username = username;
 		this.date = date;
 		this.time = time;
@@ -38,18 +33,6 @@ public class EvaluationRequest{
 	
 	
 	
-	@Id
-	@GeneratedValue
-	@NotNull
-	@Column(name = "requestId", unique = true)
-	
-	public int getRequestId(){
-		return this.requestId;
-	}
-	
-	public void setRequestId(int requestId){
-		this.requestId = requestId;
-	}
 	
 	@NotNull
 	@Column(name = "username")

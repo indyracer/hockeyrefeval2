@@ -23,7 +23,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
 		//list of restricted Official URLs
-		List<String> officialAuthPages = Arrays.asList("officialhome", "officialrequesteval");
+		List<String> officialAuthPages = Arrays.asList("officialhome", "officialevaluationrequest", "adminhome", "adminevalsetup");
 		
 		if(officialAuthPages.contains(request.getRequestURI())){
 			boolean isLoggedIn = false;
