@@ -14,7 +14,7 @@ public class EvaluationInput extends AbstractUser{
 	private String officialLastName;
 	private String evaluationDate;
 	private String evaluationLocation;
-	private String ageLevel; //ie pee wee, High School Varsity, etc.
+	private String gameLevel; //ie pee wee, High School Varsity, etc.
 	//evaluation criteria, int = rating, String = comments
 	private int appearance;
 	private String appearanceComment;
@@ -29,7 +29,7 @@ public class EvaluationInput extends AbstractUser{
 	public EvaluationInput() {} //no arg constructor so hibernate will work
 	
 	public EvaluationInput (String officialFirstName, String officialLastName, String evaluationDate, 
-							String evaluationLocation, String ageLevel, int appearance, String appearanceComment,
+							String evaluationLocation, String gameLevel, int appearance, String appearanceComment,
 							int positioning, String positioningComment, int ruleKnowledge, String ruleKnowLedgeComment,
 							int communication, String communicationComment, String generalComments){
 		
@@ -39,7 +39,7 @@ public class EvaluationInput extends AbstractUser{
 		this.officialLastName = officialLastName;
 		this.evaluationDate = evaluationDate;
 		this.evaluationLocation = evaluationLocation;
-		this.ageLevel = ageLevel;
+		this.gameLevel = gameLevel;
 		this.appearance = appearance;
 		this.appearanceComment = appearanceComment;
 		this.positioning = positioning;
@@ -93,13 +93,13 @@ public class EvaluationInput extends AbstractUser{
 	}
 
 	@NotNull
-	@Column(name = "ageLevel")
+	@Column(name = "gameLevel")
 	public String getAgeLevel() {
-		return ageLevel;
+		return gameLevel;
 	}
 
-	public void setAgeLevel(String ageLevel) {
-		this.ageLevel = ageLevel;
+	public void setAgeLevel(String gameLevel) {
+		this.gameLevel = gameLevel;
 	}
 
 	@NotNull
@@ -118,7 +118,7 @@ public class EvaluationInput extends AbstractUser{
 		return appearanceComment;
 	}
 
-	public void setApperanceComment(String apperanceComment) {
+	public void setApperanceComment(String appearanceComment) {
 		this.appearanceComment = appearanceComment;
 	}
 	
@@ -156,7 +156,7 @@ public class EvaluationInput extends AbstractUser{
 		return ruleKnowledgeComment;
 	}
 
-	public void setRuleKonwledgeComment(String ruleKonwledgeComment) {
+	public void setRuleKonwledgeComment(String ruleKnowledgeComment) {
 		this.ruleKnowledgeComment = ruleKnowledgeComment;
 	}
 

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://ww.thymeleaf.org">
+<head th:replace="template :: dochead"></head>
+
+<body>
+	<div th:replace="template :: eval-nav"></div>
+	
+	<h1>Input Official's Evaluation</h1>
+	
+	<form method="post">
+	<p>Officials Information</p>
+	<table>
+		<tr>
+			<td><label for="officialFirstName">Officials First Name</label></td>
+		</tr>
+		<tr>
+			<td>
+				<input name="officialFirstName" type="text" th:value="${officialFirstName}"></input>
+				<span class="error" th:text="${officialFirstName_error}"></span>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="officialLastName">Officials Last Name</label></td>
+		</tr>
+		<tr>
+			<td>
+				<input name="officialLastName" type="text" th:value="${officialLastName}"></input>
+				<span class="error" th:text="${officialLastName_error}"></span>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="evaluationDate">Evaluation Date</label></td>
+		</tr>
+		<tr>
+			<td>
+				<input name="evaluationDate" type="text" th:value="${evaluationDate}"></input>
+				<span class="error" th:text="${evaluationDate_error}"></span>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="evaluationLocation">Evaluation Location</label></td>
+		</tr>
+		<tr>
+			<td>
+				<input name="evaluationLocation" type="text" th:value="${evaluationLocation}"></input>
+				<span class="error" th:text="${evaluationLocation_error}"></span>
+			</td>
+		</tr>
+		<tr>
+			<td><label for="gameLevel">Game Level</label></td>
+		</tr>
+		<tr>
+			<td>
+				<input name="gameLevel" type="text" th:value="${gameLevel}"></input>
+				<span class="error" th:text="${gameLevel_error}"></span>
+			</td>
+		</tr>
+	</table>
+	
+	<p>Evaluation Criteria</p>
+	<label for="appearance">Appearance</label>
+		
+	<input name="appearance" type="radio" value=1>1 Unacceptable</input>
+	<input name="appearance" type="radio" value=2>2</input>
+	<input name="appearance" type="radio" value=3>3</input>
+	<input name="appearance" type="radio" value=4>4</input>
+	<input name="appearance" type="radio" value=5>5 Appropriate</input>
+	<span class="error" th:text="${appearance_error}"></span>
+	
+	<label for="appearanceComment">Comments on Appearance</label>
+	<input name="appearanceComment" type="text" value="${appearanceComment}"></input>
+	
+	<label for="positioning">Positioning</label>
+		
+	<input name="positioning" type="radio" value=1>1 Needs Work</input>
+	<input name="positioning" type="radio" value=2>2</input>
+	<input name="positioning" type="radio" value=3>3</input>
+	<input name="positioning" type="radio" value=4>4</input>
+	<input name="positioning" type="radio" value=5>5 Good</input>
+	<span class="error" th:text="${positioning_error}"></span>
+	
+	<label for="positioningComment">Comments on Positioning</label>
+	<input name="positioningComment" type="text" value="${positioningComment}"></input>
+	
+	<label for="ruleKnowLedge">Rule Knowledge</label>
+		
+	<input name="ruleKnowLedge" type="radio" value=1>1 Needs Work</input>
+	<input name="ruleKnowLedge" type="radio" value=2>2</input>
+	<input name="ruleKnowLedge" type="radio" value=3>3</input>
+	<input name="ruleKnowLedge" type="radio" value=4>4</input>
+	<input name="ruleKnowLedge" type="radio" value=5>5 Good</input>
+	<span class="error" th:text="${ruleKnowLedge_error}"></span>
+	
+	<label for="ruleKnowledgeComment">Comments on Rule Knowledge</label>
+	<input name="ruleKnowledgeComment" type="text" value="${ruleKnowLedgeComment}"></input>			
+				
+	<label for="communication">Communication</label>
+		
+	<input name="communication" type="radio" value=1>1 Needs Work</input>
+	<input name="communication" type="radio" value=2>2</input>
+	<input name="communication" type="radio" value=3>3</input>
+	<input name="communication" type="radio" value=4>4</input>
+	<input name="communication" type="radio" value=5>5 Good</input>
+	<span class="error" th:text="${communication_error}"></span>
+	
+	<label for="communicationComment">Comments on Communication</label>
+	<input name="communicationComment" type="text" value="${communicationComment}"></input>	
+	
+	<label for="generalCommments">General Comments</label>
+	<input name="generalComments" type="text" value="${generalComments}"></input>
+	
+	<button type="submit">Submit</button>	
+	
+	</form>
+
+</body>
+
+</html>
