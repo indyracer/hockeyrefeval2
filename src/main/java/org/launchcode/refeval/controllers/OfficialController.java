@@ -105,7 +105,7 @@ public class OfficialController extends AbstractController{
 		evaluationRequestDao.save(newRequest);
 		
 		model.addAttribute("request_received", "Your evaluation request has been received");
-		return "redirect:/officialhome";
+		return "officialhome";
 	}
 	
 	public static boolean isValidDate(String date){

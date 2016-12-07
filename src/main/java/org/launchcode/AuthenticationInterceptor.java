@@ -37,13 +37,13 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 					isLoggedIn = true;
 				}
 			}
-			//if user is not logged in, redirect to login page
+			//if user is not logged in, redirect to login page ADD !isOfficial to send Admin and Evaluators back to homepage
 			if(!isLoggedIn){
-				response.sendRedirect("/officiallogin");
+				response.sendRedirect("/officiallogin");//FIX, SEND TO HOME PAGE FOR APPROPRIATE LOGIN, LOOK INTO ERROR 403, FORBIDDEN ACCESS ERROR
 				return false;
 			}
 		}
-		
+		//MAKE IF STATEMENTS TO CHECK LISTS FOR EVALS & ADMINS, SIMILAR TO ABOVE	
 		return true;
 		
 	}
