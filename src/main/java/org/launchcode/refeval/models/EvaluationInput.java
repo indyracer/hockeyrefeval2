@@ -156,7 +156,7 @@ public class EvaluationInput extends AbstractUser{
 		return ruleKnowledgeComment;
 	}
 
-	public void setRuleKonwledgeComment(String ruleKnowledgeComment) {
+	public void setRuleKnowledgeComment(String ruleKnowledgeComment) {
 		this.ruleKnowledgeComment = ruleKnowledgeComment;
 	}
 

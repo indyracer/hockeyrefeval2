@@ -151,6 +151,43 @@ public class OfficialAuthenticationController extends AbstractController {
 		setOfficialInSession(request.getSession(), official);
 		return "redirect:/adminhome";
 	}
+	
+	@RequestMapping(value="/evaluatorlogin", method=RequestMethod.GET)
+	public String evalLoginForm() {
+		return "evaluatorlogin";
+	}
+	
+	@RequestMapping(value="/evaluatorlogin", method=RequestMethod.POST)
+	public String evalLogin(HttpServletRequest request, Model model){
+		//implements evaluator login
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		Official evaluator = officialDao.findByUsername(username);
+		
+		//validate username and password
+		
+		if(username == null || username == "" || password == null || password == ""){
+			model.addAttribute("missing_field_error", "Missing username or password, please try again");
+			return "evaluatorlogin";
+		}
+		
+		//validate evaluator is in database
+		 if(evaluator == null){
+			 model.addAttribute("username_error", "Username not found, please try again");
+			 return "evaluatorlogin";
+		 }
+		 
+		 //check password matches to evaluator
+		 if(!evaluator.isMatchingPassword(password)){
+			 model.addAttribute("password_error", "Password doesn't match username, please try again");
+			 return "evaluatorlogin";
+		 }
+		 
+		 //log in evaluator
+		 setOfficialInSession(request.getSession(), evaluator);
+		 return "redirect:/evaluatorhome";
+	}
 
 }
 

@@ -29,9 +29,9 @@ public class AdminController extends AbstractController{
 
 	@RequestMapping(value="adminevalsetup", method = RequestMethod.POST)
 	public String evalSetup(HttpServletRequest request, Model model){
-		//get parameters from from
+		//get parameters from form
 		String firstName = request.getParameter("firstname");
-		String lastName = request.getParameter("lastName");
+		String lastName = request.getParameter("lastname");
 
 
 		//validate that fields were input 
@@ -50,7 +50,7 @@ public class AdminController extends AbstractController{
 		//add evaluator to database
 		officialDao.save(newEvaluator);
 		
-		return "adminhome";
+		return "redirect:/adminhome";
 		
 
 	}

@@ -8,7 +8,8 @@
 	<h1>Input Official's Evaluation</h1>
 	
 	<form method="post">
-	<p>Officials Information</p>
+	<span class = "error" th:text="${missing_field_error}"></span>
+	<h2>Officials Information</h2>
 	<table>
 		<tr>
 			<td><label for="officialFirstName">Officials First Name</label></td>
@@ -29,7 +30,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td><label for="evaluationDate">Evaluation Date</label></td>
+			<td><label for="evaluationDate">Evaluation Date (M/D/Y)</label></td>
 		</tr>
 		<tr>
 			<td>
@@ -57,57 +58,83 @@
 		</tr>
 	</table>
 	
-	<p>Evaluation Criteria</p>
+	<h2>Evaluation Criteria</h2>
 	<label for="appearance">Appearance</label>
-		
-	<input name="appearance" type="radio" value=1>1 Unacceptable</input>
-	<input name="appearance" type="radio" value=2>2</input>
-	<input name="appearance" type="radio" value=3>3</input>
-	<input name="appearance" type="radio" value=4>4</input>
-	<input name="appearance" type="radio" value=5>5 Appropriate</input>
+	<br/>
+			
+	<input name="appearance" type="radio" value="1">Unacceptable 1</input>
+	<input name="appearance" type="radio" value="2">2</input>
+	<input name="appearance" type="radio" value="3">3</input>
+	<input name="appearance" type="radio" value="4">4</input>
+	<input name="appearance" type="radio" value="5">5 Appropriate</input>
 	<span class="error" th:text="${appearance_error}"></span>
+	<br/>
+	<br/>
 	
 	<label for="appearanceComment">Comments on Appearance</label>
-	<input name="appearanceComment" type="text" value="${appearanceComment}"></input>
+	<input name="appearanceComment" type="text" th:value="${appearanceComment}"></input>
+	<br/>
+	<br/>
 	
 	<label for="positioning">Positioning</label>
+	<br/>
 		
-	<input name="positioning" type="radio" value=1>1 Needs Work</input>
-	<input name="positioning" type="radio" value=2>2</input>
-	<input name="positioning" type="radio" value=3>3</input>
-	<input name="positioning" type="radio" value=4>4</input>
-	<input name="positioning" type="radio" value=5>5 Good</input>
+	<input name="positioning" type="radio" value="1">Needs Work 1</input>
+	<input name="positioning" type="radio" value="2">2</input>
+	<input name="positioning" type="radio" value="3">3</input>
+	<input name="positioning" type="radio" value="4">4</input>
+	<input name="positioning" type="radio" value="5">5 Good</input>
 	<span class="error" th:text="${positioning_error}"></span>
+	<br/>
+	<br/>
 	
 	<label for="positioningComment">Comments on Positioning</label>
-	<input name="positioningComment" type="text" value="${positioningComment}"></input>
+	<input name="positioningComment" type="text" th:value="${positioningComment}"></input>
+	<br/>
+	<br/>
 	
 	<label for="ruleKnowLedge">Rule Knowledge</label>
+	<br/>
+	<br/>
 		
-	<input name="ruleKnowLedge" type="radio" value=1>1 Needs Work</input>
-	<input name="ruleKnowLedge" type="radio" value=2>2</input>
-	<input name="ruleKnowLedge" type="radio" value=3>3</input>
-	<input name="ruleKnowLedge" type="radio" value=4>4</input>
-	<input name="ruleKnowLedge" type="radio" value=5>5 Good</input>
+	<input name="ruleKnowLedge" type="radio" value="1">Needs Work 1</input>
+	<input name="ruleKnowLedge" type="radio" value="2">2</input>
+	<input name="ruleKnowLedge" type="radio" value="3">3</input>
+	<input name="ruleKnowLedge" type="radio" value="4">4</input>
+	<input name="ruleKnowLedge" type="radio" value="5">5 Good</input>
 	<span class="error" th:text="${ruleKnowLedge_error}"></span>
+	<br/>
+	<br/>
+	
 	
 	<label for="ruleKnowledgeComment">Comments on Rule Knowledge</label>
-	<input name="ruleKnowledgeComment" type="text" value="${ruleKnowLedgeComment}"></input>			
+	<input name="ruleKnowledgeComment" type="text" th:value="${ruleKnowLedgeComment}"></input>
+	<br/>
+	<br/>
+		
 				
 	<label for="communication">Communication</label>
+	<br/>
+	<br/>
 		
-	<input name="communication" type="radio" value=1>1 Needs Work</input>
-	<input name="communication" type="radio" value=2>2</input>
-	<input name="communication" type="radio" value=3>3</input>
-	<input name="communication" type="radio" value=4>4</input>
-	<input name="communication" type="radio" value=5>5 Good</input>
+	<input name="communication" type="radio" value="1">Needs Work 1</input>
+	<input name="communication" type="radio" value="2">2</input>
+	<input name="communication" type="radio" value="3">3</input>
+	<input name="communication" type="radio" value="4">4</input>
+	<input name="communication" type="radio" value="5">5 Good</input>
 	<span class="error" th:text="${communication_error}"></span>
+	<br/>
+	<br/>
 	
 	<label for="communicationComment">Comments on Communication</label>
-	<input name="communicationComment" type="text" value="${communicationComment}"></input>	
+	<input name="communicationComment" type="text" th:value="${communicationComment}"></input>
+	<br/>
+	<br/>	
 	
 	<label for="generalCommments">General Comments</label>
-	<input name="generalComments" type="text" value="${generalComments}"></input>
+	<input name="generalComments" type="text" th:value="${generalComments}"></input>
+	<br/>
+	<br/>
 	
 	<button type="submit">Submit</button>	
 	
