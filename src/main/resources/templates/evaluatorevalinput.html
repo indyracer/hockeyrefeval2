@@ -76,6 +76,23 @@
 	<br/>
 	<br/>
 	
+	<label for="skating">Skating</label>
+	<br/>
+			
+	<input name="skating" type="radio" value="1">Unacceptable 1</input>
+	<input name="skating" type="radio" value="2">2</input>
+	<input name="skating" type="radio" value="3">3</input>
+	<input name="skating" type="radio" value="4">4</input>
+	<input name="skating" type="radio" value="5">5 Good</input>
+	<span class="error" th:text="${skating_error}"></span>
+	<br/>
+	<br/>
+	
+	<label for="SkatingComment">Comments on Skating</label>
+	<input name="skatingComment" type="text" th:value="${skatingComment}"></input>
+	<br/>
+	<br/>
+	
 	<label for="positioning">Positioning</label>
 	<br/>
 		

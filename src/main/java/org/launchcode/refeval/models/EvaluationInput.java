@@ -18,6 +18,8 @@ public class EvaluationInput extends AbstractUser{
 	//evaluation criteria, int = rating, String = comments
 	private int appearance;
 	private String appearanceComment;
+	private int skating;
+	private String skatingComment;
 	private int positioning;
 	private String positioningComment;
 	private int ruleKnowledge;
@@ -30,7 +32,7 @@ public class EvaluationInput extends AbstractUser{
 	
 	public EvaluationInput (String officialFirstName, String officialLastName, String evaluationDate, 
 							String evaluationLocation, String gameLevel, int appearance, String appearanceComment,
-							int positioning, String positioningComment, int ruleKnowledge, String ruleKnowLedgeComment,
+							int skating, String skatingComment, int positioning, String positioningComment, int ruleKnowledge, String ruleKnowLedgeComment,
 							int communication, String communicationComment, String generalComments){
 		
 		super();
@@ -42,6 +44,8 @@ public class EvaluationInput extends AbstractUser{
 		this.gameLevel = gameLevel;
 		this.appearance = appearance;
 		this.appearanceComment = appearanceComment;
+		this.skating = skating;
+		this.skatingComment = skatingComment;
 		this.positioning = positioning;
 		this.positioningComment = positioningComment;
 		this.ruleKnowledge = ruleKnowledge;
@@ -120,6 +124,25 @@ public class EvaluationInput extends AbstractUser{
 
 	public void setApperanceComment(String appearanceComment) {
 		this.appearanceComment = appearanceComment;
+	}
+	
+	@NotNull
+	@Column(name = "skating")
+	public int skating(){
+		return skating;
+	}
+	
+	public void setSkating(int skating){
+		this.skating = skating;
+	}
+	
+	@Column(name = "skatingComment")
+	public String skatingComment(){
+		return skatingComment;
+	}
+	
+	public void setSkatingComment(String skatingComment){
+		this.skatingComment = skatingComment;
 	}
 	
 	@NotNull

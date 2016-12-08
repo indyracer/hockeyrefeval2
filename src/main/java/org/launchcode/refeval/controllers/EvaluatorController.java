@@ -1,13 +1,13 @@
 package org.launchcode.refeval.controllers;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.launchcode.refeval.models.EvaluationInput;
-import org.launchcode.refeval.models.dao.EvaluationInputDao;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.launchcode.refeval.models.EvaluationRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,14 +16,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class EvaluatorController extends AbstractController{
 	
-	@Autowired
-	private EvaluationInputDao evaluationInputDao;
+	
 	
 	@RequestMapping(value="/evaluatorhome")
 	public String evaluatorHome(Model model){
+		
+		//fetch list of outstanding evaluation requests
+		List<EvaluationRequest> evalRequest = evaluationRequestDao.findAll();
+		model.addAttribute("evalRequests", evalRequest);
+		
 		return "evaluatorhome";
 		
-		//ADD METHODS TO LIST THE EVALUTION REQUESTS HERE
 	}
 	
 	@RequestMapping(value="evaluatorevalinput", method = RequestMethod.GET)
@@ -41,6 +44,8 @@ public class EvaluatorController extends AbstractController{
 		String gameLevel = request.getParameter("gameLevel");
 		String appearance = request.getParameter("appearance");//need to parse to int
 		String appearanceComment = request.getParameter("appearanceComment");
+		String skating = request.getParameter("skating");
+		String skatingComment = request.getParameter("skatingComment");
 		String positioning = request.getParameter("positioning");//need to parse to int
 		String positioningComment = request.getParameter("positioningComment");
 		String ruleKnowLedge = request.getParameter("ruleKnowLedge");//need to parse to int
@@ -51,6 +56,7 @@ public class EvaluatorController extends AbstractController{
 		
 		//parse scoring variables to ints
 		int appearanceScore = Integer.parseInt(appearance);
+		int skatingScore = Integer.parseInt(skating);
 		int positioningScore = Integer.parseInt(positioning);
 		int ruleKnowLedgeScore = Integer.parseInt(ruleKnowLedge);
 		int communicationScore = Integer.parseInt(communication);
@@ -71,7 +77,7 @@ public class EvaluatorController extends AbstractController{
 		
 		//validation complete, add to db
 		EvaluationInput newEval = new EvaluationInput(officialFirstName, officialLastName, evaluationDate, evaluationLocation, gameLevel, appearanceScore, appearanceComment, 
-				positioningScore, positioningComment, ruleKnowLedgeScore, ruleKnowLedgeComment, communicationScore, communicationComment, generalComment);
+				skatingScore, skatingComment, positioningScore, positioningComment, ruleKnowLedgeScore, ruleKnowLedgeComment, communicationScore, communicationComment, generalComment);
 		evaluationInputDao.save(newEval);
 		
 		return "redirect:/evaluatorhome";
