@@ -10,7 +10,7 @@
 	<h2>Current Requests for Evaluations</h2>
 	<!-- add list of evaluation requests here -->
 	<ul>
-		<li th:each="evalRequests : ${evalRequests}"><span th:text="${evalRequests.username}"></span></li>
+		<li th:each="evalRequests : ${evalRequests}"><a th:href="'/evaluator/'+${evalRequests.firstName}+${evalRequests.lastName}+'evalrequest'+${evalRequests.uid}"><span th:text="${evalRequests.fullName} + ' ' + ${evalRequests.date}"></span></a></li>
 	</ul>
 	
 	<h2><a href="evaluatorevalinput">Input an Evaluation</a></h2>

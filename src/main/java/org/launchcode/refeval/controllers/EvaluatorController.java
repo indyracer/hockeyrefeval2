@@ -10,6 +10,7 @@ import org.launchcode.refeval.models.EvaluationInput;
 import org.launchcode.refeval.models.EvaluationRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -80,14 +81,17 @@ public class EvaluatorController extends AbstractController{
 				skatingScore, skatingComment, positioningScore, positioningComment, ruleKnowLedgeScore, ruleKnowLedgeComment, communicationScore, communicationComment, generalComment);
 		evaluationInputDao.save(newEval);
 		
-		return "redirect:/evaluatorhome";
+		return "redirect:/evaluatorhome";	
+	}
+	
+	@RequestMapping(value="evaluator/{firstName}{lastName}evalrequest{uid}")
+	public String singleEvalRequest(@PathVariable String firstName, @PathVariable String lastName, @PathVariable int uid, Model model){
 		
+		//find the official requesting eval
+		EvaluationRequest evalRequest = evaluationRequestDao.findByUid(uid);
+		model.addAttribute("evalRequest", evalRequest);
 		
-		
-		
-		
-		
-		
+		return "evaluatorevalrequest";
 	}
 	
 	public boolean isValidDate(String date){

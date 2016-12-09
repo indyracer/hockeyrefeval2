@@ -18,12 +18,20 @@
 				<td><span class="error" th:text="${missing_field_error}"></span></td>
 			</tr>
 			<tr>
-				<td><label for="username">Username</label></td>
+				<td><label for="firstName">First Name</label></td>
 				<td>
-					<input name="username" type="text" th:value="${username}"></input>
-					<span class="error" th:text="${username_error}"></span>
+					<input name="firstName" type="text" th:value="${firstName}"></input>
+					<span class="error" th:text="${first_error}"></span>
 				</td>
 			</tr>
+			<tr>
+				<td><label for="lastName">Last Name</label></td>
+				<td>
+					<input name="lastName" type="text" th:value="${lastName}"></input>
+					<span class="error" th:text="${last_error}"></span>
+				</td>
+			</tr>
+			
 			<tr>
 				<td><label for="date">Date of Game to be Evaluated(m/d/y)</label></td>
 				<td>

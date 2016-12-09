@@ -49,18 +49,32 @@ public class OfficialController extends AbstractController{
 	@RequestMapping(value = "/officialevaluationrequest", method = RequestMethod.POST)
 	public String requestEvaluation(HttpServletRequest request, Model model){
 		//get parameters from form NEED TO ADD USERNAME FOR VALIDATION PURPOSES
-		String username = request.getParameter("username");
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
 		String date = request.getParameter("date");
 		String time = request.getParameter("time");
 		String location = request.getParameter("location");
 		
 		//validate fields have been filled in
-		Official official = officialDao.findByUsername(username);
+		//identifies which official is logged in and submitting the request
+		Official offInSession = getOfficialFromSession(request.getSession());
 		
-		if(username == ""){
-			model.addAttribute("username_error", "Please include username");
+		//need to find logged in officials username
+		//String username = offInSession.getUsername();
+		
+		//used to validate there is an official with this username
+		//Official official = officialDao.findByUsername(username);
+		
+		if(firstName == ""){
+			model.addAttribute("firstName_error", "Please include First Name");
 			return "officialevaluationrequest";			
 		}
+		
+		if(lastName == ""){
+			model.addAttribute("lastName_error", "Please include Last Name");
+			return "officialevaluationrequest";			
+		}
+		
 		
 		if(date == ""){
 			model.addAttribute("date_error", "Please include date");
@@ -79,8 +93,8 @@ public class OfficialController extends AbstractController{
 		
 		
 		//validate official is in database
-		if(official == null){
-			model.addAttribute("username_error", "Username not found, please try again");
+		if(offInSession == null){
+			model.addAttribute("missing_field_error", "No official with that name found, please try again");
 			return "officialevaluationrequest";
 		}
 		
@@ -101,7 +115,7 @@ public class OfficialController extends AbstractController{
 		
 			
 		//validation complete add request to db
-		EvaluationRequest newRequest = new EvaluationRequest(username, date, time, location);
+		EvaluationRequest newRequest = new EvaluationRequest(firstName, lastName, date, time, location);
 		evaluationRequestDao.save(newRequest);
 		
 		model.addAttribute("request_received", "Your evaluation request has been received");

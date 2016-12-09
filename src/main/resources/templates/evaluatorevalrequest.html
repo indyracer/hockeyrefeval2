@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="template :: dochead"></head>
+
+<body>
+
+	<div th:replace="template :: eval-nav"></div>
+	
+	<h2 th:text="${evalRequest.firstName} + ' ' + ${evalRequest.lastName} + ' ' + ${evalRequest.date}"></h2>
+	
+	<p th:text="'Time: ' + ${evalRequest.time}"></p>
+	<p th:text="'Location:  ' + ${evalRequest.location}"></p>
+
+</body>
+
+</html>
