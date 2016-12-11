@@ -2,6 +2,7 @@ package org.launchcode.refeval.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -13,6 +14,7 @@ public class EvaluationRequest extends AbstractUser{
 	
 	private String firstName;
 	private String lastName;
+	private Official official;//used to be able to pull evals for specific official
 	private String fullName;
 	private String date;
 	private String time;
@@ -21,12 +23,13 @@ public class EvaluationRequest extends AbstractUser{
 	//no arg constructor for hibernate
 	public EvaluationRequest(){}
 	
-	public EvaluationRequest (String firstName, String lastName, String date, String time, String location){
+	public EvaluationRequest (String firstName, String lastName, Official official, String date, String time, String location){
 		
 		
 		
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.official = official;
 		this.fullName = firstName + "" + lastName;
 		this.date = date;
 		this.time = time;
@@ -56,6 +59,16 @@ public class EvaluationRequest extends AbstractUser{
 	
 	protected void setLastName(String lastName){
 		this.lastName= lastName;
+	}
+	
+	
+	@ManyToOne
+	public Official getOfficial(){
+		return official;
+	}
+	
+	protected void setOfficial(Official official){
+		this.official = official;
 	}
 	
 	@NotNull

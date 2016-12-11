@@ -40,6 +40,7 @@ public class EvaluatorController extends AbstractController{
 		//get parameters from the form
 		String officialFirstName = request.getParameter("officialFirstName");
 		String officialLastName = request.getParameter("officialLastName");
+		String officialUid = request.getParameter("officialUid");
 		String evaluationDate = request.getParameter("evaluationDate");
 		String evaluationLocation = request.getParameter("evaluationLocation");
 		String gameLevel = request.getParameter("gameLevel");
@@ -56,6 +57,7 @@ public class EvaluatorController extends AbstractController{
 		String generalComment = request.getParameter("generalComment");
 		
 		//parse scoring variables to ints
+		int uid= Integer.parseInt(officialUid);
 		int appearanceScore = Integer.parseInt(appearance);
 		int skatingScore = Integer.parseInt(skating);
 		int positioningScore = Integer.parseInt(positioning);
@@ -77,7 +79,7 @@ public class EvaluatorController extends AbstractController{
 		}
 		
 		//validation complete, add to db
-		EvaluationInput newEval = new EvaluationInput(officialFirstName, officialLastName, evaluationDate, evaluationLocation, gameLevel, appearanceScore, appearanceComment, 
+		EvaluationInput newEval = new EvaluationInput(officialFirstName, officialLastName, uid, evaluationDate, evaluationLocation, gameLevel, appearanceScore, appearanceComment, 
 				skatingScore, skatingComment, positioningScore, positioningComment, ruleKnowLedgeScore, ruleKnowLedgeComment, communicationScore, communicationComment, generalComment);
 		evaluationInputDao.save(newEval);
 		

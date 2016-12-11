@@ -12,6 +12,7 @@ public class EvaluationInput extends AbstractUser{
 	//evaluated official and game information
 	private String officialFirstName;
 	private String officialLastName;
+	private int offUid; //official's UID so they can pull up evaluations
 	private String evaluationDate;
 	private String evaluationLocation;
 	private String gameLevel; //ie pee wee, High School Varsity, etc.
@@ -30,7 +31,7 @@ public class EvaluationInput extends AbstractUser{
 	
 	public EvaluationInput() {} //no arg constructor so hibernate will work
 	
-	public EvaluationInput (String officialFirstName, String officialLastName, String evaluationDate, 
+	public EvaluationInput (String officialFirstName, String officialLastName, int offUid, String evaluationDate, 
 							String evaluationLocation, String gameLevel, int appearance, String appearanceComment,
 							int skating, String skatingComment, int positioning, String positioningComment, int ruleKnowledge, String ruleKnowLedgeComment,
 							int communication, String communicationComment, String generalComments){
@@ -39,6 +40,7 @@ public class EvaluationInput extends AbstractUser{
 		
 		this.officialFirstName = officialFirstName;
 		this.officialLastName = officialLastName;
+		this.offUid = offUid;
 		this.evaluationDate = evaluationDate;
 		this.evaluationLocation = evaluationLocation;
 		this.gameLevel = gameLevel;
@@ -75,6 +77,16 @@ public class EvaluationInput extends AbstractUser{
 	public void setOfficialLastName(String officialLastName) {
 		this.officialLastName = officialLastName;
 	}
+	
+	@NotNull
+	@Column(name = "offuid")
+	public int getOffUid(){
+		return offUid;
+	}
+	
+	public void setOffUid(int offUid){
+		this.offUid = offUid;
+	}
 
 	@NotNull
 	@Column(name = "evaluationDate")
@@ -98,11 +110,11 @@ public class EvaluationInput extends AbstractUser{
 
 	@NotNull
 	@Column(name = "gameLevel")
-	public String getAgeLevel() {
+	public String getGameLevel() {
 		return gameLevel;
 	}
 
-	public void setAgeLevel(String gameLevel) {
+	public void setGameLevel(String gameLevel) {
 		this.gameLevel = gameLevel;
 	}
 
@@ -118,17 +130,17 @@ public class EvaluationInput extends AbstractUser{
 
 	
 	@Column(name = "appearanceComment")
-	public String getApperanceComment() {
+	public String getAppearanceComment() {
 		return appearanceComment;
 	}
 
-	public void setApperanceComment(String appearanceComment) {
+	public void setAppearanceComment(String appearanceComment) {
 		this.appearanceComment = appearanceComment;
 	}
 	
 	@NotNull
 	@Column(name = "skating")
-	public int skating(){
+	public int getSkating(){
 		return skating;
 	}
 	
@@ -137,7 +149,7 @@ public class EvaluationInput extends AbstractUser{
 	}
 	
 	@Column(name = "skatingComment")
-	public String skatingComment(){
+	public String getSkatingComment(){
 		return skatingComment;
 	}
 	

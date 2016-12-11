@@ -1,16 +1,20 @@
 package org.launchcode.refeval.controllers;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.launchcode.refeval.models.EvaluationInput;
 import org.launchcode.refeval.models.EvaluationRequest;
 import org.launchcode.refeval.models.Official;
+import org.launchcode.refeval.models.dao.EvaluationInputDao;
 import org.launchcode.refeval.models.dao.EvaluationRequestDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,35 +24,44 @@ public class OfficialController extends AbstractController{
 	@Autowired
 	private EvaluationRequestDao evaluationRequestDao;
 	
+	@Autowired
+	private EvaluationInputDao evaluationInputDao;
+	
 
 
 	@RequestMapping(value="/officialhome")
-	public String officialHome(Model model){
-		//check that isOfficial is set to true
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	public String officialHome(HttpServletRequest request, Model model){
+			
 		//add officials evaluations with clickable links to each eval here, do once Evaluation table and models are completed
+		Official offInSession = getOfficialFromSession(request.getSession());
+		int offUid = offInSession.getUid();
 		
+		List<EvaluationInput> evaluations = evaluationInputDao.findByOffUid(offUid);
+		model.addAttribute("evaluations", evaluations);	
 		
 		
 		return "officialhome";
 	}
+	
 	
 	@RequestMapping(value = "/officialevaluationrequest", method = RequestMethod.GET)
 	public String requestForm(){
 		return "officialevaluationrequest";
 	}
 	
+	@RequestMapping(value="/officialevaluation{uid}", method = RequestMethod.GET)
+	public String offEvaluation(@PathVariable int uid, Model model){
+		EvaluationInput evaluation = evaluationInputDao.findByUid(uid);
+		model.addAttribute("evaluation", evaluation);
+		
+		return "officialevaluation";
+	}
+	
+	
+	
 	@RequestMapping(value = "/officialevaluationrequest", method = RequestMethod.POST)
 	public String requestEvaluation(HttpServletRequest request, Model model){
-		//get parameters from form NEED TO ADD USERNAME FOR VALIDATION PURPOSES
+		
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		String date = request.getParameter("date");
@@ -115,7 +128,7 @@ public class OfficialController extends AbstractController{
 		
 			
 		//validation complete add request to db
-		EvaluationRequest newRequest = new EvaluationRequest(firstName, lastName, date, time, location);
+		EvaluationRequest newRequest = new EvaluationRequest(firstName, lastName, getOfficialFromSession(request.getSession()), date, time, location);
 		evaluationRequestDao.save(newRequest);
 		
 		model.addAttribute("request_received", "Your evaluation request has been received");

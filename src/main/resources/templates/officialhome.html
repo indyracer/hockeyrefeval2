@@ -14,6 +14,9 @@
 	
 	<!-- add list of evaluations here, use dynamic links -->
 	<h2>Recent Evaluations</h2> 
+	<ul>
+	<li th:each="evaluations: ${evaluations}"><a th:href="'/officialevaluation' + ${evaluations.uid}"><span th:text="${evaluations.evaluationDate}"></span></a></li>
+	</ul>
 	
 	<h2>To request an evaluation, <a href="/officialevaluationrequest">click here</a></h2>
 	<span class="request_received" th:text="${request_received}"></span>
