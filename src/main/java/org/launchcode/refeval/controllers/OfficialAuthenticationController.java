@@ -36,19 +36,19 @@ public class OfficialAuthenticationController extends AbstractController {
 		
 		//official username and password were submitted
 		if(username == null || username == "" || password == null || password == ""){
-			model.addAttribute("login_error", "Missing username or password, please try again");
+			model.addAttribute("missing_field_error", "Missing username or password, please try again");
 			return "officiallogin";
 		}
 		
 		//validate official is in database
 		if(official == null){
-			model.addAttribute("login_error", "Username not found, please try again");
+			model.addAttribute("username_error", "Username not found, please try again");
 			return "officiallogin";
 		}
 		
 		//check password matches to official
 		if(!official.isMatchingPassword(password)){
-			model.addAttribute("login_error", "Incorrect password, please try again");
+			model.addAttribute("password_error", "Incorrect password, please try again");
 			return "officiallogin";
 		}
 		
@@ -131,19 +131,19 @@ public class OfficialAuthenticationController extends AbstractController {
 		
 		//official username and password were submitted
 		if(username == null || username == "" || password == null || password == ""){
-			model.addAttribute("login_error", "Missing username or password, please try again");
+			model.addAttribute("missing_field_error", "Missing username or password, please try again");
 			return "adminlogin";
 		}
 		
 		//validate official is in database
 		if(official == null){
-			model.addAttribute("login_error", "Username not found, please try again");
+			model.addAttribute("username_error", "Username not found, please try again");
 			return "adminlogin";
 		}
 		
 		//check password matches to official
 		if(!official.isMatchingPassword(password)){
-			model.addAttribute("login_error", "Incorrect password, please try again");
+			model.addAttribute("password_error", "Incorrect password, please try again");
 			return "adminlogin";
 		}
 		
@@ -180,7 +180,7 @@ public class OfficialAuthenticationController extends AbstractController {
 		 
 		 //check password matches to evaluator
 		 if(!evaluator.isMatchingPassword(password)){
-			 model.addAttribute("password_error", "Password doesn't match username, please try again");
+			 model.addAttribute("password_error", "Incorrect Password, please try again");
 			 return "evaluatorlogin";
 		 }
 		 

@@ -129,7 +129,12 @@ public class OfficialController extends AbstractController{
 		evaluationRequestDao.save(newRequest);
 		
 		model.addAttribute("request_received", "Your evaluation request has been received");
-		return "redirect:/officialhome";
+		return "officialevalrequestconfirm";
+	}
+	
+	@RequestMapping(value="/officialevalrequestconfirm")
+	public String offEvalRequestConfirm(Model model){
+		return "officialevalrequestconfirm";
 	}
 	
 	public boolean isValidDate(String date){
@@ -143,6 +148,7 @@ public class OfficialController extends AbstractController{
 		Matcher matcher = validTimePattern.matcher(time);
 		return matcher.matches();
 	}
+	
 	
 	
 	
