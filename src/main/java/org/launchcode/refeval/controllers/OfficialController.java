@@ -71,6 +71,8 @@ public class OfficialController extends AbstractController{
 		//validate fields have been filled in
 		//identifies which official is logged in and submitting the request
 		Official offInSession = getOfficialFromSession(request.getSession());
+		int offUid = offInSession.getUid();
+		
 		
 		//need to find logged in officials username
 		//String username = offInSession.getUsername();
@@ -105,11 +107,6 @@ public class OfficialController extends AbstractController{
 		}
 		
 		
-		//validate official is in database
-		if(offInSession == null){
-			model.addAttribute("missing_field_error", "No official with that name found, please try again");
-			return "officialevaluationrequest";
-		}
 		
 		//validate date is formatted correctly
 		if(!isValidDate(date)){
@@ -128,7 +125,7 @@ public class OfficialController extends AbstractController{
 		
 			
 		//validation complete add request to db
-		EvaluationRequest newRequest = new EvaluationRequest(firstName, lastName, getOfficialFromSession(request.getSession()), date, time, location);
+		EvaluationRequest newRequest = new EvaluationRequest(firstName, lastName, offUid, date, time, location);
 		evaluationRequestDao.save(newRequest);
 		
 		model.addAttribute("request_received", "Your evaluation request has been received");

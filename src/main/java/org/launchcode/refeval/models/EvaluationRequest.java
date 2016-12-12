@@ -14,7 +14,7 @@ public class EvaluationRequest extends AbstractUser{
 	
 	private String firstName;
 	private String lastName;
-	private Official official;//used to be able to pull evals for specific official
+	private int offUid;//used to be able to pull evals for specific officialIn
 	private String fullName;
 	private String date;
 	private String time;
@@ -23,13 +23,13 @@ public class EvaluationRequest extends AbstractUser{
 	//no arg constructor for hibernate
 	public EvaluationRequest(){}
 	
-	public EvaluationRequest (String firstName, String lastName, Official official, String date, String time, String location){
+	public EvaluationRequest (String firstName, String lastName, int offUid, String date, String time, String location){
 		
 		
 		
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.official = official;
+		this.offUid = offUid;
 		this.fullName = firstName + "" + lastName;
 		this.date = date;
 		this.time = time;
@@ -62,13 +62,14 @@ public class EvaluationRequest extends AbstractUser{
 	}
 	
 	
-	@ManyToOne
-	public Official getOfficial(){
-		return official;
+	@NotNull
+	@Column(name="offUid")
+	public int getOffUid(){
+		return offUid;
 	}
 	
-	protected void setOfficial(Official official){
-		this.official = official;
+	protected void setOffUid(int offUid){
+		this.offUid = offUid;
 	}
 	
 	@NotNull

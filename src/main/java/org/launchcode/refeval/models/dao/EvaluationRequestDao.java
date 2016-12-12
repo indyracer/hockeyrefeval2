@@ -14,6 +14,7 @@ public interface EvaluationRequestDao extends CrudRepository<EvaluationRequest, 
 	
 	List<EvaluationRequest> findAll();
 	EvaluationRequest findByUid(int uid);
+	EvaluationRequest findByOffUid(int offUid);
 	EvaluationRequest findByDate(String date);
 	EvaluationRequest findByFullName(String fullName);
 	
