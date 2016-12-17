@@ -1,14 +1,19 @@
 package org.launchcode.refeval.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.launchcode.refeval.models.dao.EvaluationInputDao;
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Entity
 @Table(name= "evaluations")
 public class EvaluationInput extends AbstractUser{
-	
+
 	//evaluated official and game information
 	private String officialFirstName;
 	private String officialLastName;
@@ -28,16 +33,17 @@ public class EvaluationInput extends AbstractUser{
 	private int communication;
 	private String communicationComment;
 	private String generalComments;
-	
+	private int totalScore;
+
 	public EvaluationInput() {} //no arg constructor so hibernate will work
-	
+
 	public EvaluationInput (String officialFirstName, String officialLastName, int offUid, String evaluationDate, 
-							String evaluationLocation, String gameLevel, int appearance, String appearanceComment,
-							int skating, String skatingComment, int positioning, String positioningComment, int ruleKnowledge, String ruleKnowLedgeComment,
-							int communication, String communicationComment, String generalComments){
-		
+			String evaluationLocation, String gameLevel, int appearance, String appearanceComment,
+			int skating, String skatingComment, int positioning, String positioningComment, int ruleKnowledge, String ruleKnowLedgeComment,
+			int communication, String communicationComment, String generalComments){
+
 		super();
-		
+
 		this.officialFirstName = officialFirstName;
 		this.officialLastName = officialLastName;
 		this.offUid = offUid;
@@ -53,37 +59,36 @@ public class EvaluationInput extends AbstractUser{
 		this.ruleKnowledge = ruleKnowledge;
 		this.ruleKnowledgeComment= ruleKnowLedgeComment;
 		this.communication = communication;
+		this.communicationComment = communicationComment;
 		this.generalComments = generalComments;
-		
-		
-		
+		this.totalScore = appearance + skating + positioning + ruleKnowledge + communication;
 	}
 	@NotNull
 	@Column(name = "officialFirstName")
 	public String getOfficialFirstName() {
 		return officialFirstName;
 	}
-	
+
 	public void setOfficialFirstName(String officialFirstName) {
 		this.officialFirstName = officialFirstName;
 	}
-	
+
 	@NotNull
 	@Column(name = "officialLastName")
 	public String getOfficialLastName() {
 		return officialLastName;
 	}
-	
+
 	public void setOfficialLastName(String officialLastName) {
 		this.officialLastName = officialLastName;
 	}
-	
+
 	@NotNull
 	@Column(name = "offuid")
 	public int getOffUid(){
 		return offUid;
 	}
-	
+
 	public void setOffUid(int offUid){
 		this.offUid = offUid;
 	}
@@ -128,7 +133,7 @@ public class EvaluationInput extends AbstractUser{
 		this.appearance = appearance;
 	}
 
-	
+
 	@Column(name = "appearanceComment")
 	public String getAppearanceComment() {
 		return appearanceComment;
@@ -137,26 +142,26 @@ public class EvaluationInput extends AbstractUser{
 	public void setAppearanceComment(String appearanceComment) {
 		this.appearanceComment = appearanceComment;
 	}
-	
+
 	@NotNull
 	@Column(name = "skating")
 	public int getSkating(){
 		return skating;
 	}
-	
+
 	public void setSkating(int skating){
 		this.skating = skating;
 	}
-	
+
 	@Column(name = "skatingComment")
 	public String getSkatingComment(){
 		return skatingComment;
 	}
-	
+
 	public void setSkatingComment(String skatingComment){
 		this.skatingComment = skatingComment;
 	}
-	
+
 	@NotNull
 	@Column(name = "postioning")
 	public int getPositioning() {
@@ -213,15 +218,65 @@ public class EvaluationInput extends AbstractUser{
 	public void setCommunicationComment(String communicationComment) {
 		this.communicationComment = communicationComment;
 	}
-	
+
 	@Column(name = "generalComments")
 	public String getGeneralComments(){
 		return generalComments;
 	}
-	
+
 	public void setGeneralComments(String generalComments){
 		this.generalComments = generalComments;
 	}
 	
+	@Column(name = "score")
+	public int getTotalScore(){
+		return totalScore;
+	}
 	
+	public void setTotalScore(int totalScore){
+		this.totalScore = totalScore;
+	}
+	
+	
+	/*
+	//methods to pull reports for admins
+	
+	@Autowired
+	EvaluationInputDao evaluationInputDao;
+	
+	
+	
+	
+	public double aveScore(){
+		
+		List<EvaluationInput> evaluations = evaluationInputDao.findAll();
+				
+		int totalScore = 0;
+		
+		EvaluationInput temp;
+		
+		int i; //used to go through the list to pull out the data
+		
+		//to get the total score for each official
+		for(i = 0; i < evaluations.size(); i++);{
+			
+			
+			temp = evaluations.get(i);
+					
+			totalScore = totalScore + temp.getTotalScore();
+						
+		}
+		
+		//average the scores
+		double aveScore = totalScore / evaluations.size();
+		//format to 1 decimal place
+		aveScore = Math.round(aveScore * 10)/10.0;
+		
+		return aveScore;
+		
+	}*/
+	
+	
+
+
 }

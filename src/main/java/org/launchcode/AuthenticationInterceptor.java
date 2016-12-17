@@ -35,18 +35,19 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 			if(officialId != null){
 				official = officialDao.findByUid(officialId);
 				
+				if(official.isAdmin || official.isEvaluator){
+					response.sendRedirect("/index");
+					return false;
+				}
+				
 				if(official != null){
 					isLoggedIn = true;
 				}
 			}
 			//if user is not logged in, redirect to login page ADD !isOfficial to send Admin and Evaluators back to homepage
 			//check that official is an official, not an admin or evaluator
-			official = officialDao.findByUid(officialId);
+			//official = officialDao.findByUid(officialId);
 			
-			if(!official.isOfficial){
-				response.sendRedirect("/index");
-				return false;
-			}
 			
 			if(!isLoggedIn){
 				response.sendRedirect("/officiallogin");//FIX, SEND TO HOME PAGE FOR APPROPRIATE LOGIN, LOOK INTO ERROR 403, FORBIDDEN ACCESS ERROR
@@ -60,9 +61,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 			Integer evaluatorId = (Integer) request.getSession().getAttribute(AbstractController.officialSessionKey);
 			Official evaluator = officialDao.findByUid(evaluatorId);
 			
-			if(evaluatorId != null){
-				//evaluator = officialDao.findByUid(evaluatorId);
-				
+			if(evaluatorId != null){				
 				if(evaluator != null){
 					isLoggedIn = true;
 				}
@@ -88,8 +87,6 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 					Official admin = officialDao.findByUid(adminId);
 					
 					if(adminId != null){
-						//admin= officialDao.findByUid(adminId);					
-						
 						if(admin != null){
 							isLoggedIn = true;
 						}
@@ -107,7 +104,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 						return false;
 					}			
 				}
-		//MAKE IF STATEMENTS TO CHECK LISTS FOR EVALS & ADMINS, SIMILAR TO ABOVE	
+			
 		return true;
 		
 	}

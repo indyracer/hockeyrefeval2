@@ -1,9 +1,7 @@
 package org.launchcode;
 
-import static org.junit.Assert.*;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

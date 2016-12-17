@@ -11,6 +11,14 @@
 	<h2>Setup a <a href="/adminevalsetup">new evaluator</a></h2>
 	<br></br>
 	<h2><a href="/adminreports">Reports</a></h2>
+	
+	<h2>Current Evaluations</h2>
+	
+	<ul>
+		<li th:each="evaluation : ${evaluation}"><span th:text="${evaluation.officialFirstName} + ' ' + ${evaluation.officialLastName}"></span></li>
+	
+	</ul>
+	
 
 </body>
 

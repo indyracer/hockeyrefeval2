@@ -1,7 +1,10 @@
 package org.launchcode.refeval.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.launchcode.refeval.models.EvaluationInput;
 import org.launchcode.refeval.models.Official;
 import org.launchcode.refeval.models.dao.OfficialDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,11 @@ public class AdminController extends AbstractController{
 
 	@RequestMapping(value="/adminhome")
 	public String adminHome(Model model){
+		List<EvaluationInput> evaluation = evaluationInputDao.findAll();
+		model.addAttribute("evaluation", evaluation);
+		
+		
+		
 		return "adminhome";
 	}
 
@@ -43,7 +51,7 @@ public class AdminController extends AbstractController{
 		//create new admin using Official object
 		//set up evaluator username using firstname + lastname + Evaluator, eg. bobcohenEvaluator
 		String evalUsername = firstName + lastName + "Evaluator";
-		//set up password for evalator, lastname + firstname
+		//set up password for evaulator, lastname + firstname
 		String evalPassword = lastName + firstName;
 		Official newEvaluator = new Official(firstName, lastName, evalUsername, evalPassword, 0, false, true, false);
 		
@@ -52,7 +60,46 @@ public class AdminController extends AbstractController{
 		
 		return "redirect:/adminhome";
 		
-
+	}
+	
+	@RequestMapping(value="adminreports", method = RequestMethod.GET)
+	public String reports(){
+			return "adminreports";
+	}
+	
+	@RequestMapping(value="adminreportsaverages", method = RequestMethod.GET)
+	public String aveReports(HttpServletRequest request, Model model){
+		//average Score all officials
+		List<EvaluationInput> evaluations = evaluationInputDao.findAll();
+		
+		int totalScore = 0;
+		
+		EvaluationInput temp;
+		
+		
+		//to get the total score for each official
+		for(int i = 0; i < evaluations.size(); i++){
+			
+			
+			temp = evaluations.get(i);
+					
+			totalScore = totalScore + temp.getTotalScore();
+						
+		}
+		
+		//average the scores
+		double aveScore = totalScore / evaluations.size();
+		//format to 1 decimal place
+		aveScore = aveScore * 10/10.0;
+		
+		model.addAttribute("aveScore", aveScore);
+		
+		// average score for level 1
+		
+		
+		return "adminreportsaverages";
+		
+		
 	}
 	
 }

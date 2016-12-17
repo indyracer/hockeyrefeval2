@@ -18,5 +18,5 @@ public interface EvaluationInputDao extends CrudRepository<EvaluationInput, Inte
 	EvaluationInput findByOfficialFirstName(String officialFirstName);
 	EvaluationInput findByOfficialLastName(String officialLastName);
 	List<EvaluationInput> findByOffUid(int offUid);
-
+	
 }

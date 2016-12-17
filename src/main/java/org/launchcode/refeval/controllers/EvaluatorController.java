@@ -54,7 +54,7 @@ public class EvaluatorController extends AbstractController{
 		String ruleKnowLedgeComment = request.getParameter("ruleKnowLedgeComment");
 		String communication = request.getParameter("communication");//need to parse to int
 		String communicationComment = request.getParameter("communicationComment");
-		String generalComment = request.getParameter("generalComment");
+		String generalComment = request.getParameter("generalComments");
 		
 		//parse scoring variables to ints
 		int uid= Integer.parseInt(officialUid);

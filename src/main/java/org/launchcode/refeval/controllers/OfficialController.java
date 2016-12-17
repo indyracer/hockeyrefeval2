@@ -1,3 +1,4 @@
+
 package org.launchcode.refeval.controllers;
 
 import java.util.List;
@@ -137,7 +138,7 @@ public class OfficialController extends AbstractController{
 		return "officialevalrequestconfirm";
 	}
 	
-	public boolean isValidDate(String date){
+	public static boolean isValidDate(String date){
 		Pattern validDatePattern = Pattern.compile("^[0-3]?[0-9]/[0-3]?[0-9]/(?:[0-9]{2})?[0-9]{2}$");
 		Matcher matcher = validDatePattern.matcher(date);
 		return matcher.matches();
