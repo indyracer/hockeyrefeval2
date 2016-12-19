@@ -6,11 +6,14 @@
 
 	<div th:replace="template :: admin-nav"></div>
 	
-	<h1>Average Reports</h1>
+	<h1>Average Scores</h1>
+	<h3>Scoring based on a max 25 point total</h3>
 	
-	<p th:text="'Average-All Officials:  ' + ${aveScore}"></p>
-	<p th:text="'Average Level 1 Officials:  ' + ${aveLevel1Score}"></p>
-	<p th:text="'Average Level 2 Officials:  ' + ${aveLevel2Score} + ' ' + ${noLevel2}"></p>
+	<p th:text="'All Officials:  ' + ${aveScore}"></p>
+	<p th:text="'Level 1 Officials:  ' + ${level1Ave}"></p>
+	<p th:text="'Level 2 Officials:  ' + ${level2Ave}"></p>
+	<p th:text="'Level 3 Officials:  ' + ${level3Ave}"></p>
+	<p th:text="'Level 4 Officials:  ' + ${level4Ave}"></p>
 	
 
 	

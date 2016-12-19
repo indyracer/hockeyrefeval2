@@ -14,6 +14,7 @@
 	<p th:text="'Game Level:  ' + ${evaluation.gameLevel}"></p>
 	
 	<h2>Evaluation Scores</h2>
+	<p>Scores based on a 0 (unacceptable) to 5 (Excellent) scale</p>
 	<p th:text="'Appearance Score:  ' + ${evaluation.appearance}"></p>
 	<p th:text="'Appearance Comments:  ' + ${evaluation.appearanceComment}"></p>
 	<br/>
@@ -31,7 +32,7 @@
 	<br/>
 	<p th:text="'General Comments:  ' + ${evaluation.generalComments}"></p>
 	<br/>
-	<p th:text="'Total Score: ' + ${evaluation.totalScore}"></p>
+	<p th:text="'Total Score out of 25 possible points: ' + ${evaluation.totalScore}"></p>
 </body>
 
 </html>

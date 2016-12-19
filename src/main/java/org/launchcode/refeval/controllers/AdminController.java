@@ -94,75 +94,94 @@ public class AdminController extends AbstractController{
 		
 		model.addAttribute("aveScore", aveScore);
 		
-		// average score for level 1
+		//average by level
 		
-		List<EvaluationInput> level1Evals = evaluationInputDao.findByOffLevel(1);
+		double level1Total = 0;
+		double level1Count = 0;
+		double level2Total = 0;
+		double level2Count = 0;
+		double level3Total = 0;
+		double level3Count = 0;
+		double level4Total = 0;
+		double level4Count = 0;
 		
-		EvaluationInput level1Temp;
-		double level1Score = 0;
+		EvaluationInput levelTemp;
 		
-		if(level1Evals != null){
-			
-		
-		
-		//get total score for each level 1 official
-		
-		for(int i = 0; i < level1Evals.size(); i++){
-			
-			level1Temp = level1Evals.get(i);
-			
-			level1Score = level1Score + level1Temp.getTotalScore();
-			
+		for(int i = 0; i < evaluations.size(); i++){
+			levelTemp = evaluations.get(i);
+			if(levelTemp.getOffLevel() == 1){
+				level1Total = level1Total + levelTemp.getTotalScore();
+				level1Count++;
+			} 
+			else if(levelTemp.getOffLevel() == 2){
+				level2Total = level2Total + levelTemp.getTotalScore();
+				level2Count++;
+			}
+			else if(levelTemp.getOffLevel() == 3){
+				level3Total = level3Total + levelTemp.getTotalScore();
+				level3Count++;
+			}
+			else{
+				level4Total = level4Total + levelTemp.getTotalScore();
+				level4Count++;
+			}
 		}
+			
+		//calculation by level
+		double level1Ave = Math.round(level1Total / level1Count) * 10 / 10.0;
+		double level2Ave = Math.round(level2Total / level2Count) * 10 / 10.0;
+		double level3Ave = Math.round(level3Total / level3Count) * 10 / 10.0;
+		double level4Ave = Math.round(level4Total / level4Count) * 10 / 10.0;
 		
-		double aveLevel1Score = level1Score / level1Evals.size();
-		
-		aveLevel1Score = Math.round(aveLevel1Score) * 10 / 10.0;
-		
-		model.addAttribute("aveLevel1Score", aveLevel1Score);
-		}
-		
-		else {
-			String noLevel1 = "No evaluations currently recored for Level 1 officials";
-			model.addAttribute("aveLevel1Score", noLevel1);
-		}
-		
-		// average score for level 2
-		
-				List<EvaluationInput> level2Evals = evaluationInputDao.findByOffLevel(2);
-				
-				EvaluationInput level2Temp;
-				double level2Score = 0;
-				
-				if(level2Evals != null){
-					
-				
-				
-				//get total score for each level 2 official
-				
-				for(int i = 0; i < level2Evals.size(); i++){
-					
-					level2Temp = level2Evals.get(i);
-					
-					level2Score = level2Score + level2Temp.getTotalScore();
-					
-				}
-				
-				double aveLevel2Score = level2Score / level1Evals.size();
-				
-				aveLevel2Score = Math.round(aveLevel2Score) * 10 / 10.0;
-				
-				model.addAttribute("aveLevel2Score", aveLevel2Score);
-				}
-				
-				else {
-					String noLevel2 = "No evaluations currently recored for Level 2 officials";
-					model.addAttribute("noLevel2", noLevel2);
-				}
+		model.addAttribute("level1Ave", level1Ave);
+		model.addAttribute("level2Ave", level2Ave);
+		model.addAttribute("level3Ave", level3Ave);
+		model.addAttribute("level4Ave", level4Ave);
 		
 		return "adminreportsaverages";
-		
-		
 	}
+	
+	@RequestMapping(value="adminreportsbycriteria", method = RequestMethod.GET)
+	public String scoreByCriteria(HttpServletRequest request, Model model){
+		
+		List<EvaluationInput> evaluations = evaluationInputDao.findAll();
+		
+		EvaluationInput temp;
+		
+		//get score for each criteria and calculate average across all officials
+		
+		double appearanceTotal = 0;
+		double skatingTotal = 0;
+		double positioningTotal = 0;
+		double ruleKnowledgeTotal = 0;
+		double communicationTotal = 0;
+		double count = evaluations.size();
+		
+		for(int i = 0; i < evaluations.size(); i++){
+			temp = evaluations.get(i);
+			appearanceTotal = appearanceTotal + temp.getAppearance();
+			skatingTotal = skatingTotal + temp.getSkating();
+			ruleKnowledgeTotal = ruleKnowledgeTotal + temp.getRuleKnowledge();
+			positioningTotal = positioningTotal + temp.getPositioning();
+			communicationTotal = communicationTotal + temp.getCommunication();
+		}
+		
+		double aveAppearance = Math.round(appearanceTotal / count) * 10 / 10.0;
+		double aveSkating = Math.round(skatingTotal / count) * 10 / 10.0;
+		double aveRuleKnowledge = Math.round(ruleKnowledgeTotal / count) * 10 / 10.0;
+		double avePositioning = Math.round(positioningTotal / count) * 10 / 10.0;
+		double aveCommunication = Math.round(communicationTotal / count) * 10 / 10.0;
+		
+		model.addAttribute("aveAppearance", aveAppearance);
+		model.addAttribute("aveSkating", aveSkating);
+		model.addAttribute("aveRuleKnowledge", aveRuleKnowledge);
+		model.addAttribute("avePositioning", avePositioning);
+		model.addAttribute("aveCommunication", aveCommunication);
+		
+		return "adminreportsbycriteria";
+		
+		
+		}
+	
 	
 }

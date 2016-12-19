@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="thhp://www.thymeleaf.org">
+<head th:replace="template :: dochead"></head>
+
+<body>
+	<div th:replace="template :: admin-nav"></div>
+
+	<h1>Average Scores by Criteria</h1>
+	<h3>Scoring range: 1 (unacceptable) to 5 (excellent)</h3>
+	
+	<p th:text="'Apperance:  ' + ${aveAppearance}"></p>
+	<p th:text="'Skating:  ' + ${aveSkating}"></p>
+	<p th:text="'Rules Knowledge:  ' + ${aveRuleKnowledge}"></p>
+	<p th:text="'Positioing:  ' + ${avePositioning}"></p>
+	<p th:text="'Communication:  ' + ${aveCommunication}"></p>
+</body>
+
+</html>
