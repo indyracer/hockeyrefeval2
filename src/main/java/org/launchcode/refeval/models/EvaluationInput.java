@@ -18,25 +18,25 @@ public class EvaluationInput extends AbstractUser{
 	private String evaluationLocation;
 	private String gameLevel; //ie pee wee, High School Varsity, etc.
 	//evaluation criteria, int = rating, String = comments
-	private int appearance;
+	private double appearance;
 	private String appearanceComment;
-	private int skating;
+	private double skating;
 	private String skatingComment;
-	private int positioning;
+	private double positioning;
 	private String positioningComment;
-	private int ruleKnowledge;
+	private double ruleKnowledge;
 	private String ruleKnowledgeComment;
-	private int communication;
+	private double communication;
 	private String communicationComment;
 	private String generalComments;
-	private int totalScore;
+	private double totalScore;
 
 	public EvaluationInput() {} //no arg constructor so hibernate will work
 
 	public EvaluationInput (String officialFirstName, String officialLastName, int offUid, int offLevel, String evaluationDate, 
-			String evaluationLocation, String gameLevel, int appearance, String appearanceComment,
-			int skating, String skatingComment, int positioning, String positioningComment, int ruleKnowledge, String ruleKnowLedgeComment,
-			int communication, String communicationComment, String generalComments){
+			String evaluationLocation, String gameLevel, double appearance, String appearanceComment,
+			double skating, String skatingComment, double positioning, String positioningComment, double ruleKnowledge, String ruleKnowLedgeComment,
+			double communication, String communicationComment, String generalComments){
 
 		super();
 
@@ -132,11 +132,11 @@ public class EvaluationInput extends AbstractUser{
 
 	@NotNull
 	@Column(name = "appearance")
-	public int getAppearance() {
+	public double getAppearance() {
 		return appearance;
 	}
 
-	public void setAppearance(int appearance) {
+	public void setAppearance(double appearance) {
 		this.appearance = appearance;
 	}
 
@@ -152,11 +152,11 @@ public class EvaluationInput extends AbstractUser{
 
 	@NotNull
 	@Column(name = "skating")
-	public int getSkating(){
+	public double getSkating(){
 		return skating;
 	}
 
-	public void setSkating(int skating){
+	public void setSkating(double skating){
 		this.skating = skating;
 	}
 
@@ -171,11 +171,11 @@ public class EvaluationInput extends AbstractUser{
 
 	@NotNull
 	@Column(name = "postioning")
-	public int getPositioning() {
+	public double getPositioning() {
 		return positioning;
 	}
 
-	public void setPositioning(int positioning) {
+	public void setPositioning(double positioning) {
 		this.positioning = positioning;
 	}
 
@@ -190,11 +190,11 @@ public class EvaluationInput extends AbstractUser{
 
 	@NotNull
 	@Column (name = "ruleKnowledge")
-	public int getRuleKnowledge() {
+	public double getRuleKnowledge() {
 		return ruleKnowledge;
 	}
 
-	public void setRuleKnowledge(int ruleKnowledge) {
+	public void setRuleKnowledge(double ruleKnowledge) {
 		this.ruleKnowledge = ruleKnowledge;
 	}
 
@@ -209,11 +209,11 @@ public class EvaluationInput extends AbstractUser{
 
 	@NotNull
 	@Column (name = "communication")
-	public int getCommunication() {
+	public double getCommunication() {
 		return communication;
 	}
 
-	public void setCommunication(int communication) {
+	public void setCommunication(double communication) {
 		this.communication = communication;
 	}
 
@@ -236,54 +236,12 @@ public class EvaluationInput extends AbstractUser{
 	}
 	
 	@Column(name = "score")
-	public int getTotalScore(){
+	public double getTotalScore(){
 		return totalScore;
 	}
 	
-	public void setTotalScore(int totalScore){
+	public void setTotalScore(double totalScore){
 		this.totalScore = totalScore;
 	}
 	
-	
-	/*
-	//methods to pull reports for admins
-	
-	@Autowired
-	EvaluationInputDao evaluationInputDao;
-	
-	
-	
-	
-	public double aveScore(){
-		
-		List<EvaluationInput> evaluations = evaluationInputDao.findAll();
-				
-		int totalScore = 0;
-		
-		EvaluationInput temp;
-		
-		int i; //used to go through the list to pull out the data
-		
-		//to get the total score for each official
-		for(i = 0; i < evaluations.size(); i++);{
-			
-			
-			temp = evaluations.get(i);
-					
-			totalScore = totalScore + temp.getTotalScore();
-						
-		}
-		
-		//average the scores
-		double aveScore = totalScore / evaluations.size();
-		//format to 1 decimal place
-		aveScore = Math.round(aveScore * 10)/10.0;
-		
-		return aveScore;
-		
-	}*/
-	
-	
-
-
 }

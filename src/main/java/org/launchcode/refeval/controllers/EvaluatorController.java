@@ -58,13 +58,13 @@ public class EvaluatorController extends AbstractController{
 		String generalComment = request.getParameter("generalComments");
 		
 		//parse scoring variables to ints
-		int uid= Integer.parseInt(officialUid);
+		int uid= Integer.parseInt(officialUid); 
 		int level = Integer.parseInt(offLevel);
-		int appearanceScore = Integer.parseInt(appearance);
-		int skatingScore = Integer.parseInt(skating);
-		int positioningScore = Integer.parseInt(positioning);
-		int ruleKnowLedgeScore = Integer.parseInt(ruleKnowLedge);
-		int communicationScore = Integer.parseInt(communication);
+		double appearanceScore = Double.parseDouble(appearance);
+		double skatingScore = Double.parseDouble(skating);
+		double positioningScore = Double.parseDouble(positioning);
+		double ruleKnowLedgeScore = Double.parseDouble(ruleKnowLedge);
+		double communicationScore = Double.parseDouble(communication);
 		
 		//validate all required fields were input
 		if(officialFirstName == "" || officialLastName == "" || officialUid == "" || offLevel == "" || evaluationDate == "" || evaluationLocation == "" || 

@@ -72,7 +72,7 @@ public class AdminController extends AbstractController{
 		//average Score all officials
 		List<EvaluationInput> evaluations = evaluationInputDao.findAll();
 		
-		int totalScore = 0;
+		double totalScore = 0;
 		
 		EvaluationInput temp;
 		
@@ -88,9 +88,8 @@ public class AdminController extends AbstractController{
 		}
 		
 		//average the scores
-		double aveScore = totalScore / evaluations.size();
-		//format to 1 decimal place
-		aveScore = aveScore * 10/10.0;
+		double aveScore = Math.round((totalScore / evaluations.size()) * 10) / 10.0;
+		
 		
 		model.addAttribute("aveScore", aveScore);
 		
@@ -128,10 +127,10 @@ public class AdminController extends AbstractController{
 		}
 			
 		//calculation by level
-		double level1Ave = Math.round(level1Total / level1Count) * 10 / 10.0;
-		double level2Ave = Math.round(level2Total / level2Count) * 10 / 10.0;
-		double level3Ave = Math.round(level3Total / level3Count) * 10 / 10.0;
-		double level4Ave = Math.round(level4Total / level4Count) * 10 / 10.0;
+		double level1Ave = Math.round((level1Total / level1Count) * 10) / 10.0;
+		double level2Ave = Math.round((level2Total / level2Count) * 10) / 10.0;
+		double level3Ave = Math.round((level3Total / level3Count) * 10) / 10.0;
+		double level4Ave = Math.round((level4Total / level4Count) * 10) / 10.0;
 		
 		model.addAttribute("level1Ave", level1Ave);
 		model.addAttribute("level2Ave", level2Ave);
@@ -166,11 +165,11 @@ public class AdminController extends AbstractController{
 			communicationTotal = communicationTotal + temp.getCommunication();
 		}
 		
-		double aveAppearance = Math.round(appearanceTotal / count) * 10 / 10.0;
-		double aveSkating = Math.round(skatingTotal / count) * 10 / 10.0;
-		double aveRuleKnowledge = Math.round(ruleKnowledgeTotal / count) * 10 / 10.0;
-		double avePositioning = Math.round(positioningTotal / count) * 10 / 10.0;
-		double aveCommunication = Math.round(communicationTotal / count) * 10 / 10.0;
+		double aveAppearance = Math.round((appearanceTotal / count) * 10) / 10.0;
+		double aveSkating = Math.round((skatingTotal / count) * 10) / 10.0;
+		double aveRuleKnowledge = Math.round((ruleKnowledgeTotal / count) * 10) / 10.0;
+		double avePositioning = Math.round((positioningTotal / count) * 10) / 10.0;
+		double aveCommunication = Math.round((communicationTotal / count) * 10) / 10.0;
 		
 		model.addAttribute("aveAppearance", aveAppearance);
 		model.addAttribute("aveSkating", aveSkating);
