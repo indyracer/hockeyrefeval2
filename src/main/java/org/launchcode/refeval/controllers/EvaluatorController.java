@@ -41,6 +41,7 @@ public class EvaluatorController extends AbstractController{
 		String officialFirstName = request.getParameter("officialFirstName");
 		String officialLastName = request.getParameter("officialLastName");
 		String officialUid = request.getParameter("officialUid");
+		String offLevel = request.getParameter("offLevel");
 		String evaluationDate = request.getParameter("evaluationDate");
 		String evaluationLocation = request.getParameter("evaluationLocation");
 		String gameLevel = request.getParameter("gameLevel");
@@ -58,6 +59,7 @@ public class EvaluatorController extends AbstractController{
 		
 		//parse scoring variables to ints
 		int uid= Integer.parseInt(officialUid);
+		int level = Integer.parseInt(offLevel);
 		int appearanceScore = Integer.parseInt(appearance);
 		int skatingScore = Integer.parseInt(skating);
 		int positioningScore = Integer.parseInt(positioning);
@@ -65,7 +67,7 @@ public class EvaluatorController extends AbstractController{
 		int communicationScore = Integer.parseInt(communication);
 		
 		//validate all required fields were input
-		if(officialFirstName == "" || officialLastName == "" || evaluationDate == "" || evaluationLocation == "" || 
+		if(officialFirstName == "" || officialLastName == "" || officialUid == "" || offLevel == "" || evaluationDate == "" || evaluationLocation == "" || 
 			gameLevel == "" || appearance == "" || positioning == "" || ruleKnowLedge == "" || communication == ""){
 			
 			model.addAttribute("missing_field_error", "Please ensure all required fields are filled in");
@@ -79,7 +81,7 @@ public class EvaluatorController extends AbstractController{
 		}
 		
 		//validation complete, add to db
-		EvaluationInput newEval = new EvaluationInput(officialFirstName, officialLastName, uid, evaluationDate, evaluationLocation, gameLevel, appearanceScore, appearanceComment, 
+		EvaluationInput newEval = new EvaluationInput(officialFirstName, officialLastName, uid, level, evaluationDate, evaluationLocation, gameLevel, appearanceScore, appearanceComment, 
 				skatingScore, skatingComment, positioningScore, positioningComment, ruleKnowLedgeScore, ruleKnowLedgeComment, communicationScore, communicationComment, generalComment);
 		evaluationInputDao.save(newEval);
 		

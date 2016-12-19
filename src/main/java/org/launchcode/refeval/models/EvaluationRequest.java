@@ -18,11 +18,12 @@ public class EvaluationRequest extends AbstractUser{
 	private String date;
 	private String time;
 	private String location;
+	private int offLevel; //officials level
 	
 	//no arg constructor for hibernate
 	public EvaluationRequest(){}
 	
-	public EvaluationRequest (String firstName, String lastName, int offUid, String date, String time, String location){
+	public EvaluationRequest (String firstName, String lastName, int offUid, String date, String time, String location, int offLevel){
 		
 		
 		
@@ -33,6 +34,7 @@ public class EvaluationRequest extends AbstractUser{
 		this.date = date;
 		this.time = time;
 		this.location = location;
+		this.offLevel = offLevel;
 		
 		
 	}
@@ -109,6 +111,16 @@ public class EvaluationRequest extends AbstractUser{
 	
 	protected void setLocation(String location){
 		this.location = location;
+	}
+	
+	@NotNull
+	@Column(name = "offLevel")
+	public int getOffLevel(){
+		return offLevel;
+	}
+	
+	protected void setOffLevel(int offLevel){
+		this.offLevel = offLevel;
 	}
 
 	

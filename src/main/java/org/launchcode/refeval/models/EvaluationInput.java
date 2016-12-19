@@ -1,14 +1,9 @@
 package org.launchcode.refeval.models;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import org.launchcode.refeval.models.dao.EvaluationInputDao;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name= "evaluations")
@@ -18,6 +13,7 @@ public class EvaluationInput extends AbstractUser{
 	private String officialFirstName;
 	private String officialLastName;
 	private int offUid; //official's UID so they can pull up evaluations
+	private int offLevel; //official's level
 	private String evaluationDate;
 	private String evaluationLocation;
 	private String gameLevel; //ie pee wee, High School Varsity, etc.
@@ -37,7 +33,7 @@ public class EvaluationInput extends AbstractUser{
 
 	public EvaluationInput() {} //no arg constructor so hibernate will work
 
-	public EvaluationInput (String officialFirstName, String officialLastName, int offUid, String evaluationDate, 
+	public EvaluationInput (String officialFirstName, String officialLastName, int offUid, int offLevel, String evaluationDate, 
 			String evaluationLocation, String gameLevel, int appearance, String appearanceComment,
 			int skating, String skatingComment, int positioning, String positioningComment, int ruleKnowledge, String ruleKnowLedgeComment,
 			int communication, String communicationComment, String generalComments){
@@ -47,6 +43,7 @@ public class EvaluationInput extends AbstractUser{
 		this.officialFirstName = officialFirstName;
 		this.officialLastName = officialLastName;
 		this.offUid = offUid;
+		this.offLevel = offLevel;
 		this.evaluationDate = evaluationDate;
 		this.evaluationLocation = evaluationLocation;
 		this.gameLevel = gameLevel;
@@ -91,6 +88,16 @@ public class EvaluationInput extends AbstractUser{
 
 	public void setOffUid(int offUid){
 		this.offUid = offUid;
+	}
+	
+	@NotNull
+	@Column(name = "offLevel")
+	public int getOffLevel(){
+		return offLevel;
+	}
+	
+	public void setOffLevel(int offLevel){
+		this.offLevel = offLevel;
 	}
 
 	@NotNull

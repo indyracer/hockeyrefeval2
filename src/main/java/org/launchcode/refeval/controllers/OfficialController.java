@@ -73,6 +73,7 @@ public class OfficialController extends AbstractController{
 		//identifies which official is logged in and submitting the request
 		Official offInSession = getOfficialFromSession(request.getSession());
 		int offUid = offInSession.getUid();
+		int offLevel = offInSession.getLevel();
 		
 		
 		//need to find logged in officials username
@@ -126,7 +127,7 @@ public class OfficialController extends AbstractController{
 		
 			
 		//validation complete add request to db
-		EvaluationRequest newRequest = new EvaluationRequest(firstName, lastName, offUid, date, time, location);
+		EvaluationRequest newRequest = new EvaluationRequest(firstName, lastName, offUid, date, time, location, offLevel);
 		evaluationRequestDao.save(newRequest);
 		
 		model.addAttribute("request_received", "Your evaluation request has been received");
