@@ -23,19 +23,19 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
 		//list of restricted Official URLs
-		List<String> officialAuthPages = Arrays.asList("officialhome", "officialevaluationrequest", "officialevaluation");
+		List<String> officialAuthPages = Arrays.asList("officialhome", "officialevaluationrequest", "officialevaluationrequestconfirm","officialevaluation");
 		List<String> evaluatorAuthPages = Arrays.asList("evaluatorhome", "evaluatorevalinput", "evaluatorevalrequest");
-		List<String> adminAuthPages = Arrays.asList("adminhome", "adminevalsetup");
+		List<String> adminAuthPages = Arrays.asList("adminhome", "adminreports", "adminreportsaverages", "adminreportsbycriteria", "adminsetup", "adminevalsetup");
 		
 		if(officialAuthPages.contains(request.getRequestURI())){
+			
 			boolean isLoggedIn = false;
 			Official official;
 			Integer officialId = (Integer) request.getSession().getAttribute(AbstractController.officialSessionKey);
+			official = officialDao.findByUid(officialId);
 			
 			if(officialId != null){
-				official = officialDao.findByUid(officialId);
-				
-				if(official.isAdmin || official.isEvaluator){
+				if(!official.isOfficial){
 					response.sendRedirect("/index");
 					return false;
 				}
@@ -44,15 +44,12 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 					isLoggedIn = true;
 				}
 			}
-			//if user is not logged in, redirect to login page ADD !isOfficial to send Admin and Evaluators back to homepage
-			//check that official is an official, not an admin or evaluator
-			//official = officialDao.findByUid(officialId);
-			
 			
 			if(!isLoggedIn){
 				response.sendRedirect("/officiallogin");//FIX, SEND TO HOME PAGE FOR APPROPRIATE LOGIN, LOOK INTO ERROR 403, FORBIDDEN ACCESS ERROR
 				return false;
 			}	
+			return true;
 		}
 		
 		//Evaluator pages
@@ -77,7 +74,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 			if(!isLoggedIn){
 				response.sendRedirect("/evaluatorlogin");
 				return false;
-			}			
+			}
+			return true;
 		}
 		
 		//Admin pages
@@ -102,7 +100,8 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 					if(!isLoggedIn){
 						response.sendRedirect("/adminlogin");
 						return false;
-					}			
+					}
+					return true;
 				}
 			
 		return true;

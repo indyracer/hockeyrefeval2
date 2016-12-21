@@ -29,6 +29,38 @@ public class AdminController extends AbstractController{
 		
 		return "adminhome";
 	}
+	
+	@RequestMapping(value="/adminsetup", method = RequestMethod.GET)
+	public String adminSetupForm(){
+		return "adminsetup";
+	}
+	
+	@RequestMapping(value="/adminsetup", method = RequestMethod.POST)
+	public String adminSetup(HttpServletRequest request, Model model){
+		
+		String firstName = request.getParameter("firstname");
+		String lastName = request.getParameter("lastname");
+		
+		//validate that fields were input 
+				if(firstName == "" || firstName == null || lastName == "" || lastName == null){
+					model.addAttribute("missing_field_error", "Missing field input, please try again");
+					return "adminsetup";
+				}
+				
+				//create new admin using Official object
+				//set up admin username using firstname + lastname + Admin, eg. BobCohenAdmin
+				String adminUsername = firstName + lastName + "Admin";
+				//set up password for evaulator, lastname + firstname
+				String evalPassword = adminUsername;
+				Official newAdmin = new Official(firstName, lastName, adminUsername, evalPassword, 0, false, false, true);
+				
+				//add evaluator to database
+				officialDao.save(newAdmin);
+				
+				return "redirect:/adminhome";
+		
+		
+	}
 
 	@RequestMapping(value="/adminevalsetup", method = RequestMethod.GET)
 	public String evalSetupForm(){
