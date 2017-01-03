@@ -14,99 +14,74 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
-	
+
 	@Autowired
 	OfficialDao officialDao;
-	
-	
-	
+
+
+
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
 		//list of restricted Official URLs
-		List<String> officialAuthPages = Arrays.asList("officialhome", "officialevaluationrequest", "officialevaluationrequestconfirm","officialevaluation");
-		List<String> evaluatorAuthPages = Arrays.asList("evaluatorhome", "evaluatorevalinput", "evaluatorevalrequest");
-		List<String> adminAuthPages = Arrays.asList("adminhome", "adminreports", "adminreportsaverages", "adminreportsbycriteria", "adminsetup", "adminevalsetup");
-		
-		if(officialAuthPages.contains(request.getRequestURI())){
-			
+		List<String> officialAuthPages = Arrays.asList("/officialhome", "/officialevaluationrequest", "/officialevaluationrequestconfirm","/officialevaluation");
+		List<String> evaluatorAuthPages = Arrays.asList("/evaluatorhome", "/evaluatorevalinput", "/evaluatorevalrequest");
+		List<String> adminAuthPages = Arrays.asList("/adminhome", "/adminreports", "/adminreportsaverages", "/adminreportsbycriteria", "/adminsetup", "/adminevalsetup");
+
+		//check that user is logged in
+		if(officialAuthPages.contains(request.getRequestURI()) || evaluatorAuthPages.contains(request.getRequestURI()) || adminAuthPages.contains(request.getRequestURI())){
+
 			boolean isLoggedIn = false;
 			Official official;
 			Integer officialId = (Integer) request.getSession().getAttribute(AbstractController.officialSessionKey);
-			official = officialDao.findByUid(officialId);
-			
+
+
 			if(officialId != null){
-				if(!official.isOfficial){
-					response.sendRedirect("/index");
-					return false;
-				}
-				
+				official= officialDao.findByUid(officialId);
 				if(official != null){
 					isLoggedIn = true;
 				}
-			}
-			
-			if(!isLoggedIn){
-				response.sendRedirect("/officiallogin");//FIX, SEND TO HOME PAGE FOR APPROPRIATE LOGIN, LOOK INTO ERROR 403, FORBIDDEN ACCESS ERROR
-				return false;
-			}	
-			return true;
-		}
-		
-		//Evaluator pages
-		if(evaluatorAuthPages.contains(request.getRequestURI())){
-			boolean isLoggedIn = false;
-			Integer evaluatorId = (Integer) request.getSession().getAttribute(AbstractController.officialSessionKey);
-			Official evaluator = officialDao.findByUid(evaluatorId);
-			
-			if(evaluatorId != null){				
-				if(evaluator != null){
-					isLoggedIn = true;
-				}
-			}
-			
-			//check that official is an evaluator, not an admin or official			
-			if(!evaluator.isEvaluator){
-				response.sendRedirect("/index");
-				return false;
-			}
-			
-			//if user is not logged in, redirect to login page 
-			if(!isLoggedIn){
-				response.sendRedirect("/evaluatorlogin");
-				return false;
-			}
-			return true;
-		}
-		
-		//Admin pages
-				if(adminAuthPages.contains(request.getRequestURI())){
-					boolean isLoggedIn = false;
-					Integer adminId = (Integer) request.getSession().getAttribute(AbstractController.officialSessionKey);
-					Official admin = officialDao.findByUid(adminId);
-					
-					if(adminId != null){
-						if(admin != null){
-							isLoggedIn = true;
-						}
-					}
-					
-					//check that official is an evaluator, not an admin or official
-					if(!admin.isAdmin){
-						response.sendRedirect("/index");
-						return false;
-					}
-					
-					//if user is not logged in, redirect to login page 
-					if(!isLoggedIn){
-						response.sendRedirect("/adminlogin");
-						return false;
-					}
-					return true;
-				}
-			
-		return true;
-		
-	}
-	
 
+
+				if(!isLoggedIn){
+					response.sendRedirect("/index");//FIX, SEND TO HOME PAGE FOR APPROPRIATE LOGIN, LOOK INTO ERROR 403, FORBIDDEN ACCESS ERROR
+					return false;
+				}
+
+			}
+			
+			//check that user has access to appropriate pages
+			//officials
+			official = officialDao.findByUid(officialId);
+			
+			if(officialAuthPages.contains(request.getRequestURI())){
+				if(official.isOfficial == false){
+					response.sendRedirect("index");
+					return false;
+				} //else {
+					//return true;
+				//}
+			}
+			
+			if(evaluatorAuthPages.contains(request.getRequestURI())){
+				if(official.isEvaluator == false){
+					response.sendRedirect("index");
+					return false;
+				} //else {
+					//return true;
+				//}
+			}
+			
+			if(adminAuthPages.contains(request.getRequestURI())){
+				if(official.isAdmin == false){
+					response.sendRedirect("index");
+					return false;
+				} //else {
+					//return true;
+				//}
+			}
+
+		}
+
+		return true;
+	}
 }
