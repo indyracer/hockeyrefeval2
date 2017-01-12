@@ -33,51 +33,55 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 			boolean isLoggedIn = false;
 			Official official;
 			Integer officialId = (Integer) request.getSession().getAttribute(AbstractController.officialSessionKey);
+			
 
-
+			if(officialId == null){
+				response.sendRedirect("/");
+				return false;
+			} else
+			{
+				official = officialDao.findByUid(officialId);
+			}
+			
+			
 			if(officialId != null){
-				official= officialDao.findByUid(officialId);
 				if(official != null){
 					isLoggedIn = true;
 				}
 
 
 				if(!isLoggedIn){
-					response.sendRedirect("/index");//FIX, SEND TO HOME PAGE FOR APPROPRIATE LOGIN, LOOK INTO ERROR 403, FORBIDDEN ACCESS ERROR
+					response.sendRedirect("/");//FIX, SEND TO HOME PAGE FOR APPROPRIATE LOGIN, LOOK INTO ERROR 403, FORBIDDEN ACCESS ERROR
 					return false;
 				}
 
 			}
 			
-			//check that user has access to appropriate pages
-			//officials
-			official = officialDao.findByUid(officialId);
 			
+			
+			//check that user has access to appropriate pages
+			//Official Pages			
 			if(officialAuthPages.contains(request.getRequestURI())){
 				if(official.isOfficial == false){
-					response.sendRedirect("index");
+					response.sendRedirect("/");
 					return false;
-				} //else {
-					//return true;
-				//}
+				} 
 			}
 			
+			//Evaluator Pages
 			if(evaluatorAuthPages.contains(request.getRequestURI())){
 				if(official.isEvaluator == false){
-					response.sendRedirect("index");
+					response.sendRedirect("/");
 					return false;
-				} //else {
-					//return true;
-				//}
+				} 
 			}
 			
+			//Admin Pages
 			if(adminAuthPages.contains(request.getRequestURI())){
 				if(official.isAdmin == false){
-					response.sendRedirect("index");
+					response.sendRedirect("/");
 					return false;
-				} //else {
-					//return true;
-				//}
+				} 
 			}
 
 		}
