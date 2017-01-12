@@ -188,6 +188,16 @@ public class OfficialAuthenticationController extends AbstractController {
 		 setOfficialInSession(request.getSession(), evaluator);
 		 return "redirect:/evaluatorhome";
 	}
+	
+	@RequestMapping(value="/403forbidden", method=RequestMethod.GET)
+	public String accessDenied(){
+		return "403forbidden";
+	}
+	
+	@RequestMapping(value="/403login", method=RequestMethod.GET)
+	public String notLoggedIn(){
+		return "403login";
+	}
 
 }
 

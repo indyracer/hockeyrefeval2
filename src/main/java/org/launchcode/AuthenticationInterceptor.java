@@ -36,7 +36,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 			
 
 			if(officialId == null){
-				response.sendRedirect("/");
+				response.sendRedirect("403login");
 				return false;
 			} else
 			{
@@ -63,7 +63,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 			//Official Pages			
 			if(officialAuthPages.contains(request.getRequestURI())){
 				if(official.isOfficial == false){
-					response.sendRedirect("/");
+					response.sendRedirect("403forbidden");
 					return false;
 				} 
 			}
@@ -71,7 +71,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 			//Evaluator Pages
 			if(evaluatorAuthPages.contains(request.getRequestURI())){
 				if(official.isEvaluator == false){
-					response.sendRedirect("/");
+					response.sendRedirect("403forbidden");
 					return false;
 				} 
 			}
@@ -79,7 +79,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 			//Admin Pages
 			if(adminAuthPages.contains(request.getRequestURI())){
 				if(official.isAdmin == false){
-					response.sendRedirect("/");
+					response.sendRedirect("403forbidden");
 					return false;
 				} 
 			}
