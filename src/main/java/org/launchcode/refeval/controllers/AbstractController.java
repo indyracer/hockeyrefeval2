@@ -20,9 +20,10 @@ public abstract class AbstractController {
 
 	
 
-	
+	//Uses the official ID from database as the session key
 	public static final String officialSessionKey = "official_id";
 	
+	//finds the official by using the session key as the official id
 	protected Official getOfficialFromSession(HttpSession session) {
 		Integer officialId = (Integer) session.getAttribute(officialSessionKey);
 		return officialId == null ? null : officialDao.findByUid(officialId);

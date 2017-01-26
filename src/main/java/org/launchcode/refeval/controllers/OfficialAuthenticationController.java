@@ -16,25 +16,28 @@ public class OfficialAuthenticationController extends AbstractController {
 	@Autowired
 	private OfficialDao officialDao;
 
+	//handles the login in verifications for the different users:  Officials, Evaluators & Admins
+	
+	
+	//Login page for officials
 	@RequestMapping(value="/officiallogin", method = RequestMethod.GET)
 	public String loginForm() {
-		// pulls up login form
+		
 		return "officiallogin";
 	}
 
-
+	//processes official login info
 	@RequestMapping(value="/officiallogin", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, Model model) {
-		// implements the login
-		
+				
 		//get parameters from login form
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		//validate parameters in order to login
+		//finds official by username to validate login info
 		Official official = officialDao.findByUsername(username);
 		
-		//official username and password were submitted
+		//verify a username and password were submitted
 		if(username == null || username == "" || password == null || password == ""){
 			model.addAttribute("missing_field_error", "Missing username or password, please try again");
 			return "officiallogin";
@@ -52,27 +55,31 @@ public class OfficialAuthenticationController extends AbstractController {
 			return "officiallogin";
 		}
 		
+		//Official has been verified and is ready to be logged in
 		//log them in by setting official in session
 		setOfficialInSession(request.getSession(), official);
 		return "redirect:/officialhome";
 	}
 	
+	//Page for new officials to sign up
 	@RequestMapping(value="/officialsignup", method = RequestMethod.GET)
 	public String officialSignupForm(){
 		return "/officialsignup";
 	}
 	
+	//Process new official data
 	@RequestMapping(value="/officialsignup", method = RequestMethod.POST)
 	public String officialSignup(HttpServletRequest request, Model model){
 		
 		//get parameters from signup form
 		String firstName = request.getParameter("firstname");
 		String lastName = request.getParameter("lastname");
-		String certLevel = request.getParameter("level");
+		String certLevel = request.getParameter("level"); //will need to be converted to int
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String verify = request.getParameter("verify");
 		
+		//converts to int
 		int level = Integer.parseInt(certLevel);
 		
 		//validate parameters (all parameters were included)
@@ -100,24 +107,35 @@ public class OfficialAuthenticationController extends AbstractController {
 			return "/officialsignup";
 		}
 		
-		//set isOfficial to true, isEvaluator to false, isAdmin to false
 		
-	
+		//validate official level is within norms, between 1-4
 		
+		
+		if(level <1 || level > 4){
+			model.addAttribute("level_error", "Invalid Official Level. Please input valid level between 1-4");
+			return"/officialsignup";
+		}
+		
+			
 		//once validated, create new official
+		//set isOfficial to true, isEvaluator to false, isAdmin to false
 		Official newOfficial = new Official(firstName, lastName, username, password, level, true, false, false);
 		officialDao.save(newOfficial);
+		//logs in new official and send to officials home page
 		setOfficialInSession(request.getSession(), newOfficial);
 		
 		return "redirect:/officialhome";
 	}
 	
+	//Admin Login
+	//Admin login form
 	@RequestMapping(value="/adminlogin", method = RequestMethod.GET)
 	public String adminloginForm() {
 		// pulls up login form
 		return "adminlogin";
 	}
 
+	//process admin login input
 	@RequestMapping(value="/adminlogin", method = RequestMethod.POST)
 	public String adminLogin(HttpServletRequest request, Model model) {
 		// implements the login
@@ -152,14 +170,18 @@ public class OfficialAuthenticationController extends AbstractController {
 		return "redirect:/adminhome";
 	}
 	
+	
+	//Evaluator Login
+	//Evaluator login form
 	@RequestMapping(value="/evaluatorlogin", method=RequestMethod.GET)
 	public String evalLoginForm() {
 		return "evaluatorlogin";
 	}
 	
+	//Process evaluator login info
 	@RequestMapping(value="/evaluatorlogin", method=RequestMethod.POST)
 	public String evalLogin(HttpServletRequest request, Model model){
-		//implements evaluator login
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
@@ -189,11 +211,13 @@ public class OfficialAuthenticationController extends AbstractController {
 		 return "redirect:/evaluatorhome";
 	}
 	
+	//if try to access page not authorized
 	@RequestMapping(value="/403forbidden", method=RequestMethod.GET)
 	public String accessDenied(){
 		return "403forbidden";
 	}
 	
+	//if try to access page when not logged in
 	@RequestMapping(value="/403login", method=RequestMethod.GET)
 	public String notLoggedIn(){
 		return "403login";

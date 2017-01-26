@@ -13,7 +13,7 @@ public class EvaluationInput extends AbstractUser{
 	private String officialFirstName;
 	private String officialLastName;
 	private int offUid; //official's UID so they can pull up evaluations
-	private int offLevel; //official's level
+	private int offLevel; //official's level, must be between 1 - 4, NOTE:  Admin and Evaluator don't need so default to "0"
 	private String evaluationDate;
 	private String evaluationLocation;
 	private String gameLevel; //ie pee wee, High School Varsity, etc.

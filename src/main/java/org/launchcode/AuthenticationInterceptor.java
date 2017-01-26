@@ -27,31 +27,32 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 		List<String> evaluatorAuthPages = Arrays.asList("/evaluatorhome", "/evaluatorevalinput", "/evaluatorevalrequest");
 		List<String> adminAuthPages = Arrays.asList("/adminhome", "/adminreports", "/adminreportsaverages", "/adminreportsbycriteria", "/adminsetup", "/adminevalsetup");
 
-		//check that user is logged in
+		//for pages in the following list, must be logged in to access
 		if(officialAuthPages.contains(request.getRequestURI()) || evaluatorAuthPages.contains(request.getRequestURI()) || adminAuthPages.contains(request.getRequestURI())){
 
 			boolean isLoggedIn = false;
 			Official official;
 			Integer officialId = (Integer) request.getSession().getAttribute(AbstractController.officialSessionKey);
 			
-
+			//checks if user is logged in by looking for a officialSessioKey, if null, not logged in and redirects to error message
 			if(officialId == null){
 				response.sendRedirect("403login");
 				return false;
 			} else
+				//If logged in, find the user by using the officialId field
 			{
 				official = officialDao.findByUid(officialId);
 			}
 			
-			
+			//confirms that user is a valid user:  has an officialId and is found in the database
 			if(officialId != null){
 				if(official != null){
 					isLoggedIn = true;
 				}
 
-
+				//sends back to log in page
 				if(!isLoggedIn){
-					response.sendRedirect("/");//FIX, SEND TO HOME PAGE FOR APPROPRIATE LOGIN, LOOK INTO ERROR 403, FORBIDDEN ACCESS ERROR
+					response.sendRedirect("/");
 					return false;
 				}
 
@@ -60,6 +61,9 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter{
 			
 			
 			//check that user has access to appropriate pages
+			//if not authorized, send to page stating "Access Denied"
+			
+			
 			//Official Pages			
 			if(officialAuthPages.contains(request.getRequestURI())){
 				if(official.isOfficial == false){

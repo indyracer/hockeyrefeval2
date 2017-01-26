@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class EvaluatorController extends AbstractController{
 	
 	
-	
+	//Evaluator Home Page
 	@RequestMapping(value="/evaluatorhome")
 	public String evaluatorHome(Model model){
 		
@@ -30,11 +30,13 @@ public class EvaluatorController extends AbstractController{
 		
 	}
 	
+	//Form to input evaluation data
 	@RequestMapping(value="evaluatorevalinput", method = RequestMethod.GET)
 	public String evalInputForm(){
 		return "evaluatorevalinput";
 	}
 	
+	//Saves evaluation to databaose
 	@RequestMapping(value="evaluatorevalinput", method = RequestMethod.POST)
 	public String evalInput(HttpServletRequest request, Model model){
 		//get parameters from the form
@@ -80,6 +82,13 @@ public class EvaluatorController extends AbstractController{
 			return "evaluatorevalinput";
 		}
 		
+		//validate that level is within norms (1-4)
+		if(level < 1 || level > 4){
+			model.addAttribute("offLevel_error", "Invalid Official Level. Please input valid level between 1-4");
+			return "evaluatorevalinput";
+			
+		}
+		
 		//validation complete, add to db
 		EvaluationInput newEval = new EvaluationInput(officialFirstName, officialLastName, uid, level, evaluationDate, evaluationLocation, gameLevel, appearanceScore, appearanceComment, 
 				skatingScore, skatingComment, positioningScore, positioningComment, ruleKnowLedgeScore, ruleKnowLedgeComment, communicationScore, communicationComment, generalComment);
@@ -88,6 +97,7 @@ public class EvaluatorController extends AbstractController{
 		return "redirect:/evaluatorhome";	
 	}
 	
+	//provides evaluators with details on officials who have requested an evaluation
 	@RequestMapping(value="evaluator/{firstName}{lastName}evalrequest{uid}")
 	public String singleEvalRequest(@PathVariable String firstName, @PathVariable String lastName, @PathVariable int uid, Model model){
 		

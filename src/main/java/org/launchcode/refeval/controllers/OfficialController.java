@@ -29,14 +29,16 @@ public class OfficialController extends AbstractController{
 	private EvaluationInputDao evaluationInputDao;
 	
 
-
+	//Officials Home page
 	@RequestMapping(value="/officialhome")
 	public String officialHome(HttpServletRequest request, Model model){
-			
-		//add officials evaluations with clickable links to each eval here, do once Evaluation table and models are completed
+		
+		//pulls in the information for the official that has logged in by getting the Id from the session key
+		
 		Official offInSession = getOfficialFromSession(request.getSession());
 		int offUid = offInSession.getUid();
 		
+		//shows list of official's evaluations for review
 		List<EvaluationInput> evaluations = evaluationInputDao.findByOffUid(offUid);
 		model.addAttribute("evaluations", evaluations);	
 		
@@ -44,12 +46,13 @@ public class OfficialController extends AbstractController{
 		return "officialhome";
 	}
 	
-	
+	//form to request an evaluation
 	@RequestMapping(value = "/officialevaluationrequest", method = RequestMethod.GET)
 	public String requestForm(){
 		return "officialevaluationrequest";
 	}
 	
+	//page that shows selected evaluation for official
 	@RequestMapping(value="/officialevaluation{uid}", method = RequestMethod.GET)
 	public String offEvaluation(@PathVariable int uid, Model model){
 		EvaluationInput evaluation = evaluationInputDao.findByUid(uid);
@@ -59,7 +62,7 @@ public class OfficialController extends AbstractController{
 	}
 	
 	
-	
+	//processes official's evaluation request
 	@RequestMapping(value = "/officialevaluationrequest", method = RequestMethod.POST)
 	public String requestEvaluation(HttpServletRequest request, Model model){
 		
@@ -74,36 +77,31 @@ public class OfficialController extends AbstractController{
 		Official offInSession = getOfficialFromSession(request.getSession());
 		int offUid = offInSession.getUid();
 		int offLevel = offInSession.getLevel();
+	
+		//validate that form has been filled in correctly
 		
-		
-		//need to find logged in officials username
-		//String username = offInSession.getUsername();
-		
-		//used to validate there is an official with this username
-		//Official official = officialDao.findByUsername(username);
-		
-		if(firstName == ""){
+		if(firstName == "" || firstName == null){
 			model.addAttribute("firstName_error", "Please include First Name");
 			return "officialevaluationrequest";			
 		}
 		
-		if(lastName == ""){
+		if(lastName == "" || lastName == null){
 			model.addAttribute("lastName_error", "Please include Last Name");
 			return "officialevaluationrequest";			
 		}
 		
 		
-		if(date == ""){
+		if(date == "" || date == null){
 			model.addAttribute("date_error", "Please include date");
 			return "officialevaluationrequest";
 		}
 		
-		if(time == ""){
+		if(time == "" || time == null){
 			model.addAttribute("time_error", "Please include time");
 			return "officialevaluationrequest";
 		}
 		
-		if(location == ""){
+		if(location == "" || location == null){
 			model.addAttribute("location_error", "Please include location");
 			return "officialevalationrequest";
 		}
@@ -130,10 +128,12 @@ public class OfficialController extends AbstractController{
 		EvaluationRequest newRequest = new EvaluationRequest(firstName, lastName, offUid, date, time, location, offLevel);
 		evaluationRequestDao.save(newRequest);
 		
+		//sends to confirmation page
 		model.addAttribute("request_received", "Your evaluation request has been received");
 		return "officialevalrequestconfirm";
 	}
 	
+	//Confirms request has been submitted
 	@RequestMapping(value="/officialevalrequestconfirm")
 	public String offEvalRequestConfirm(Model model){
 		return "officialevalrequestconfirm";

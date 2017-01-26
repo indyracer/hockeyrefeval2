@@ -20,6 +20,7 @@ public class AdminController extends AbstractController{
 	@Autowired
 	private OfficialDao officialDao;
 
+	//admins home page
 	@RequestMapping(value="/adminhome")
 	public String adminHome(Model model){
 		List<EvaluationInput> evaluation = evaluationInputDao.findAll();
@@ -30,11 +31,13 @@ public class AdminController extends AbstractController{
 		return "adminhome";
 	}
 	
+	//Form to create new admin
 	@RequestMapping(value="/adminsetup", method = RequestMethod.GET)
 	public String adminSetupForm(){
 		return "adminsetup";
 	}
 	
+	//saves new admin to database
 	@RequestMapping(value="/adminsetup", method = RequestMethod.POST)
 	public String adminSetup(HttpServletRequest request, Model model){
 		
@@ -50,23 +53,26 @@ public class AdminController extends AbstractController{
 				//create new admin using Official object
 				//set up admin username using firstname + lastname + Admin, eg. BobCohenAdmin
 				String adminUsername = firstName + lastName + "Admin";
-				//set up password for evaulator, lastname + firstname
-				String evalPassword = adminUsername;
-				Official newAdmin = new Official(firstName, lastName, adminUsername, evalPassword, 0, false, false, true);
+				//set up password for admin, same as Admin username
+				String adminPassword = adminUsername;
+				//Admin does not need a level, use "0" as default
+				Official newAdmin = new Official(firstName, lastName, adminUsername, adminPassword, 0, false, false, true);
 				
-				//add evaluator to database
+				//add admin to database
 				officialDao.save(newAdmin);
 				
 				return "redirect:/adminhome";
 		
 		
 	}
-
+	
+	//form to create up new new evaluator
 	@RequestMapping(value="/adminevalsetup", method = RequestMethod.GET)
 	public String evalSetupForm(){
 		return "adminevalsetup";
 	}
 
+	//saves new evaluator to database
 	@RequestMapping(value="adminevalsetup", method = RequestMethod.POST)
 	public String evalSetup(HttpServletRequest request, Model model){
 		//get parameters from form
@@ -80,11 +86,12 @@ public class AdminController extends AbstractController{
 			return "adminevalsetup";
 		}
 		
-		//create new admin using Official object
+		//create new evaluator using Official object
 		//set up evaluator username using firstname + lastname + Evaluator, eg. bobcohenEvaluator
 		String evalUsername = firstName + lastName + "Evaluator";
 		//set up password for evaulator, lastname + firstname
 		String evalPassword = lastName + firstName;
+		//Evaluator does not need a level, use "0" as default
 		Official newEvaluator = new Official(firstName, lastName, evalUsername, evalPassword, 0, false, true, false);
 		
 		//add evaluator to database
@@ -94,11 +101,13 @@ public class AdminController extends AbstractController{
 		
 	}
 	
+	//To access Reports
 	@RequestMapping(value="adminreports", method = RequestMethod.GET)
 	public String reports(){
 			return "adminreports";
 	}
 	
+	//Reports
 	@RequestMapping(value="adminreportsaverages", method = RequestMethod.GET)
 	public String aveReports(HttpServletRequest request, Model model){
 		//average Score all officials
@@ -138,6 +147,7 @@ public class AdminController extends AbstractController{
 		
 		EvaluationInput levelTemp;
 		
+		//iterate through the list and compute totals and counts for individual levels
 		for(int i = 0; i < evaluations.size(); i++){
 			levelTemp = evaluations.get(i);
 			if(levelTemp.getOffLevel() == 1){
@@ -172,6 +182,7 @@ public class AdminController extends AbstractController{
 		return "adminreportsaverages";
 	}
 	
+	//Scores by each criteria
 	@RequestMapping(value="adminreportsbycriteria", method = RequestMethod.GET)
 	public String scoreByCriteria(HttpServletRequest request, Model model){
 		

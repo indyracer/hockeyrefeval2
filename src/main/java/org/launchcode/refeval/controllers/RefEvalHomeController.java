@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class RefEvalHomeController {
 	
+	//Home page of site, links to other sections of the site
 	@RequestMapping(value="/")
 	public String index(Model model){
 		return "index";
 	}
 	
+	//logout function, redirects to homepage
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request) {
 		request.getSession().invalidate();

@@ -134,7 +134,7 @@ public class Official extends AbstractUser {
 	}
 
 
-	//password meets minimum standards
+	//password meets minimum standards, must be between 6 and 20 characters
 	public static boolean isValidPassword(String password) {
 		Pattern validPasswordPattern = Pattern.compile("(\\S){6,20}");
 		Matcher matcher = validPasswordPattern.matcher(password);
@@ -153,5 +153,4 @@ public class Official extends AbstractUser {
 		return matcher.matches();
 	}
 
-	//need to add methods so official can view their evaluations, make another change
 }
