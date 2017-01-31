@@ -17,7 +17,7 @@
 	<h2>Current Evaluations</h2>
 	
 	<ul>
-		<li th:each="evaluation : ${evaluation}"><span th:text="${evaluation.officialFirstName} + ' ' + ${evaluation.officialLastName}"></span></li>
+		<li th:each="evaluation: ${evaluation}"><a th:href="'/adminevalreview' + ${evaluation.uid}"><span th:text="${evaluation.officialFirstName} + ' ' + ${evaluation.officialLastName}"></span></a></li>
 	
 	</ul>
 	

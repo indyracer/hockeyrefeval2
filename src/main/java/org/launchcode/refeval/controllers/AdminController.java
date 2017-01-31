@@ -6,10 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.launchcode.refeval.models.EvaluationInput;
 import org.launchcode.refeval.models.Official;
+import org.launchcode.refeval.models.dao.EvaluationInputDao;
 import org.launchcode.refeval.models.dao.OfficialDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,6 +21,9 @@ public class AdminController extends AbstractController{
 
 	@Autowired
 	private OfficialDao officialDao;
+	
+	@Autowired
+	private EvaluationInputDao evaluationInputDao;
 
 	//admins home page
 	@RequestMapping(value="/adminhome")
@@ -224,6 +229,15 @@ public class AdminController extends AbstractController{
 		
 		
 		}
+	
+	//pull up individual official's evaluation
+	@RequestMapping(value="/adminevalreview{uid}", method = RequestMethod.GET)
+	public String adminEvaluationReview(@PathVariable int uid, Model model){
+		EvaluationInput evaluation = evaluationInputDao.findByUid(uid);
+		model.addAttribute("evaluation", evaluation);
+		
+		return "adminevalreview";
+	}
 	
 	
 }

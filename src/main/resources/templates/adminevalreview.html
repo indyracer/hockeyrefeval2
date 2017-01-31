@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template :: dochead"></head>
+
+
+<body>
+	<div th:replace="template :: admin-nav"></div>
+	
+	<h1>Evaluation Results</h1>
+	
+	<h2>Game Summary</h2>
+	<p th:text="'Officials Name:  ' + ${evaluation.officialFirstName} + ' ' + ${evaluation.officialLastName}"></p>
+	<p th:text="'Evaluation Date:  ' + ${evaluation.evaluationDate}"></p>
+	<p th:text="'Location:  ' + ${evaluation.evaluationLocation}"></p>
+	<p th:text="'Game Level:  ' + ${evaluation.gameLevel}"></p>
+	
+	<h2>Evaluation Scores</h2>
+	<p>Scores based on a 0 (unacceptable) to 5 (Excellent) scale</p>
+	<p th:text="'Appearance Score:  ' + ${evaluation.appearance}"></p>
+	<p th:text="'Appearance Comments:  ' + ${evaluation.appearanceComment}"></p>
+	<br/>
+	<p th:text="'Skating Score:  ' + ${evaluation.skating}"></p>
+	<p th:text="'Skating Comments:  ' + ${evaluation.skatingComment}"></p>
+	<br/>
+	<p th:text="'Positioning Score:  ' + ${evaluation.positioning}"></p>
+	<p th:text="'Positioning Comments:  ' + ${evaluation.positioningComment}"></p>
+	<br/>
+	<p th:text="'Rule Knowledge Score:  ' + ${evaluation.ruleKnowledge}"></p>
+	<p th:text="'Rule Knowledge Comments:  ' + ${evaluation.ruleKnowledgeComment}"></p>
+	<br/>
+	<p th:text="'Communication Score:  ' + ${evaluation.communication}"></p>
+	<p th:text="'Communication Comments:  ' + ${evaluation.communicationComment}"></p>
+	<br/>
+	<p th:text="'General Comments:  ' + ${evaluation.generalComments}"></p>
+	<br/>
+	<p th:text="'Total Score out of 25 possible points: ' + ${evaluation.totalScore}"></p>
+	
+
+
+</body>
+</html>
