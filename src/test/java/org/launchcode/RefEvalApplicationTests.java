@@ -2,6 +2,7 @@ package org.launchcode;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.launchcode.refeval.controllers.OfficialController;
 import org.launchcode.refeval.models.Official;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -63,9 +64,103 @@ public class RefEvalApplicationTests extends TestCase {
 	}
 	
 	@Test
-	public void testHashPassword(){
-		Official official = new Official("zach", "cohen", "oldestson", "zach192006", 1, true, false, false);
-		assertEquals("$2a$10$oheqw7LKsPMJo1V3E8uxweYVZLHz1/9CXG8HJE9yMEvBddKGrQ88i", official.getPwHash());//why doesn't this match what's in MySQL?
+	public void isValidDate(){
+		//valid dates
+		String date1 = "3/1/69";
+		String date2 = "03/1/69";
+		String date3 = "03/01/69";
+		String date4 = "3/01/69";
+		String date5 = "3/1/1969";
+		String date6 = "03/1/1969";
+		String date7 = "3/01/1969";
+		String date8 = "03/01/1969";
+		
+		//invalid dates
+		String date9 = "March 1, 1969";
+		String date10 = "o3/1/69";
+		String date11 = "o3/o1/69";
+		String date12 = "3/o1/69";
+		String date13 = "o3/1/1969";
+		String date14 = "3/o1/1969";
+		String date15 = "o3/o1/1969";
+		String date16 = "/1/69";
+		String date17 = "3//69";
+		String date18 = "3/1/";
+		String date19 = "/1/1969";
+		String date20 = "3//1969";
+		String date21 = "//1969";
+		String date22 = "//69";
+		String date23 = "03//69";
+		String date24 = "03//1969";
+		String date25 = "/01/69";
+		String date26 = "/01/1969";
+		String date27 = "3//";
+		String date28 = "03//";
+		String date29 = "/1/";
+		String date30 = "/01/";
+		
+		assertTrue(OfficialController.isValidDate(date1));
+		assertTrue(OfficialController.isValidDate(date2));
+		assertTrue(OfficialController.isValidDate(date3));
+		assertTrue(OfficialController.isValidDate(date4));
+		assertTrue(OfficialController.isValidDate(date5));
+		assertTrue(OfficialController.isValidDate(date6));
+		assertTrue(OfficialController.isValidDate(date7));
+		assertTrue(OfficialController.isValidDate(date8));
+		assertFalse(OfficialController.isValidDate(date9));
+		assertFalse(OfficialController.isValidDate(date10));
+		assertFalse(OfficialController.isValidDate(date11));
+		assertFalse(OfficialController.isValidDate(date12));
+		assertFalse(OfficialController.isValidDate(date13));
+		assertFalse(OfficialController.isValidDate(date14));
+		assertFalse(OfficialController.isValidDate(date15));
+		assertFalse(OfficialController.isValidDate(date16));
+		assertFalse(OfficialController.isValidDate(date17));
+		assertFalse(OfficialController.isValidDate(date18));
+		assertFalse(OfficialController.isValidDate(date19));
+		assertFalse(OfficialController.isValidDate(date20));
+		assertFalse(OfficialController.isValidDate(date21));
+		assertFalse(OfficialController.isValidDate(date22));
+		assertFalse(OfficialController.isValidDate(date23));
+		assertFalse(OfficialController.isValidDate(date24));
+		assertFalse(OfficialController.isValidDate(date25));
+		assertFalse(OfficialController.isValidDate(date26));
+		assertFalse(OfficialController.isValidDate(date27));
+		assertFalse(OfficialController.isValidDate(date28));
+		assertFalse(OfficialController.isValidDate(date29));
+		assertFalse(OfficialController.isValidDate(date30));
+		
+	}
+	
+	@Test
+	public void isValidTimeTest(){
+		//valid times
+		String time1 = "2:15 pm";
+		String time3 = "10:15 am";
+		String time4 = "10:15 PM";
+		String time5 = "10:59 PM";
+		
+		//invalid times...add here
+		String time6 = "02:15 pm";
+		String time7 = "13:00 am";
+		String time8 = "2:65 pm";
+		String time9 = "2:0 pm";
+		String time10 = "2:00";
+		String time11 = ":00 pm";
+		String time12 = ":56";
+		
+		
+		assertTrue(OfficialController.isValidTime(time1));
+		assertTrue(OfficialController.isValidTime(time3));
+		assertTrue(OfficialController.isValidTime(time4));
+		assertTrue(OfficialController.isValidTime(time5));
+		assertFalse(OfficialController.isValidTime(time6));
+		assertFalse(OfficialController.isValidTime(time7));
+		assertFalse(OfficialController.isValidTime(time8));
+		assertFalse(OfficialController.isValidTime(time9));
+		assertFalse(OfficialController.isValidTime(time10));
+		assertFalse(OfficialController.isValidTime(time11));
+		assertFalse(OfficialController.isValidTime(time12));
 	}
 	
 }
