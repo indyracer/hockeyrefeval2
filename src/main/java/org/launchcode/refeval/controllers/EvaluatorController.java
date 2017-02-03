@@ -1,9 +1,6 @@
 package org.launchcode.refeval.controllers;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.launchcode.refeval.models.EvaluationInput;
@@ -77,7 +74,7 @@ public class EvaluatorController extends AbstractController{
 		}
 		
 		//validate date is in correct format
-		if(!isValidDate(evaluationDate)){
+		if(!OfficialController.isValidDate(evaluationDate)){
 			model.addAttribute("evaluationDate_error", "Please input date in M/D/Y format");
 			return "evaluatorevalinput";
 		}
@@ -108,10 +105,5 @@ public class EvaluatorController extends AbstractController{
 		return "evaluatorevalrequest";
 	}
 	
-	public boolean isValidDate(String date){
-		Pattern validDatePattern = Pattern.compile("^[0-3]?[0-9]/[0-3]?[0-9]/(?:[0-9]{2})?[0-9]{2}$");
-		Matcher matcher = validDatePattern.matcher(date);
-		return matcher.matches();
-	}
 
 }

@@ -30,7 +30,7 @@ public class EvaluationRequest extends AbstractUser{
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.offUid = offUid;
-		this.fullName = firstName + "" + lastName;
+		this.fullName = firstName + " " + lastName;
 		this.date = date;
 		this.time = time;
 		this.location = location;

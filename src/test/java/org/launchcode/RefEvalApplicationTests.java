@@ -3,6 +3,8 @@ package org.launchcode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.launchcode.refeval.controllers.OfficialController;
+import org.launchcode.refeval.models.EvaluationInput;
+import org.launchcode.refeval.models.EvaluationRequest;
 import org.launchcode.refeval.models.Official;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -162,5 +164,41 @@ public class RefEvalApplicationTests extends TestCase {
 		assertFalse(OfficialController.isValidTime(time11));
 		assertFalse(OfficialController.isValidTime(time12));
 	}
+	
+	@Test
+	public void evaluationInputTest(){
+		EvaluationInput evaluation1 = new EvaluationInput("test1First", "test1Last", 1, 2, "5/1/17", "Kirkwood", "Pee Wee", 3, "", 4, "", 5, "", 4, "", 3, "", "");
+		
+		assertEquals("test1First", evaluation1.getOfficialFirstName());
+		assertEquals("test1Last", evaluation1.getOfficialLastName());
+		assertEquals(1, evaluation1.getOffUid());
+		assertEquals(2, evaluation1.getOffLevel());
+		assertEquals("5/1/17", evaluation1.getEvaluationDate());
+		assertEquals("Kirkwood", evaluation1.getEvaluationLocation());
+		assertEquals("Pee Wee", evaluation1.getGameLevel());
+		assertEquals(3.0, evaluation1.getAppearance());
+		assertEquals(4.0, evaluation1.getSkating());
+		assertEquals(5.0, evaluation1.getPositioning());
+		assertEquals(4.0, evaluation1.getRuleKnowledge());
+		assertEquals(3.0, evaluation1.getCommunication());
+		assertEquals(19.0, evaluation1.getTotalScore());
+			
+	}
+	
+	@Test
+	public void evaluationRequestTest(){
+		EvaluationRequest evalRequest1 = new EvaluationRequest("testFirstName", "testLastName", 1, "5/1/16", "5:15 pm", "Kirkwood", 3);
+		
+		assertEquals("testFirstName", evalRequest1.getFirstName());
+		assertEquals("testLastName", evalRequest1.getLastName());
+		assertEquals(1, evalRequest1.getOffUid());
+		assertEquals("5/1/16", evalRequest1.getDate());
+		assertEquals("5:15 pm", evalRequest1.getTime());
+		assertEquals("Kirkwood", evalRequest1.getLocation());
+		assertEquals(3, evalRequest1.getOffLevel());
+		assertEquals("testFirstName testLastName", evalRequest1.getFullName());
+	}
+	
+	
 	
 }
