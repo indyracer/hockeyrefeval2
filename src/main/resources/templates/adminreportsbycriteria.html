@@ -5,14 +5,48 @@
 <body>
 	<div th:replace="template :: admin-nav"></div>
 
-	<h1>Average Scores by Criteria</h1>
+	<h1>Scores by Criteria</h1>
 	<h3>Scoring range: 1 (unacceptable) to 5 (excellent)</h3>
+	<h2>Overall Averages by Criteria</h2>
+	
 	
 	<p th:text="'Apperance:  ' + ${aveAppearance}"></p>
 	<p th:text="'Skating:  ' + ${aveSkating}"></p>
 	<p th:text="'Rules Knowledge:  ' + ${aveRuleKnowledge}"></p>
 	<p th:text="'Positioing:  ' + ${avePositioning}"></p>
 	<p th:text="'Communication:  ' + ${aveCommunication}"></p>
+	
+	<h2>Averages by Criteria, by Level</h2>
+	<h3>Appearance</h3>
+	<p th:text="'Level 1:  ' + ${appearanceLevel1}"></p>
+	<p th:text="'Level 2:  ' + ${appearanceLevel2}"></p>
+	<p th:text="'Level 3:  ' + ${appearanceLevel3}"></p>
+	<p th:text="'Level 4:  ' + ${appearanceLevel4}"></p>
+	
+	<h3>Skating</h3>
+	<p th:text="'Level 1:  ' + ${skatingLevel1}"></p>
+	<p th:text="'Level 2:  ' + ${skatingLevel2}"></p>
+	<p th:text="'Level 3:  ' + ${skatingLevel3}"></p>
+	<p th:text="'Level 4:  ' + ${skatingLevel4}"></p>
+	
+	<h3>Rules Knowledge</h3>
+	<p th:text="'Level 1:  ' + ${rulesLevel1}"></p>
+	<p th:text="'Level 2:  ' + ${rulesLevel2}"></p>
+	<p th:text="'Level 3:  ' + ${rulesLevel3}"></p>
+	<p th:text="'Level 4:  ' + ${rulesLevel4}"></p>
+	
+	<h3>Positioning</h3>
+	<p th:text="'Level 1:  ' + ${positioningLevel1}"></p>
+	<p th:text="'Level 2:  ' + ${positioningLevel2}"></p>
+	<p th:text="'Level 3:  ' + ${positioningLevel3}"></p>
+	<p th:text="'Level 4:  ' + ${positioningLevel4}"></p>
+	
+	<h3>Communication</h3>
+	<p th:text="'Level 1:  ' + ${communicationLevel1}"></p>
+	<p th:text="'Level 2:  ' + ${communicationLevel2}"></p>
+	<p th:text="'Level 3:  ' + ${communicationLevel3}"></p>
+	<p th:text="'Level 4:  ' + ${communicationLevel4}"></p>
+	
 </body>
 
 </html>
